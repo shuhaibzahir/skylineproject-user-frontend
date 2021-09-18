@@ -2,23 +2,23 @@ import React,{useState} from "react";
 import Reciver from "./ResivedMessage"
 import Sender from "./SendingMessage"
 import {AiOutlineClose} from "react-icons/ai"
-const Chat = ({openChatBox,changeChattinDataStatus}) => {
+const Chat = ({closeChatBox,chattingData}) => {
  
   return (
       
          <div className=" absolute max-w-md bottom-3 rounded-2xl bg-white-100  ">
-        <div className={`relative   max-w-md pb-5 h-96 overflow-auto `}>
-      <div class={`flex-1 relative p:2 sm:p-6 justify-between flex flex-col `}>
+        <div className={`relative  max-w-md pb-5 h-96 overflow-auto  `} style={{width:"480px"}}>
+      <div class={`  relative p:2 sm:p-6 justify-between flex   flex-col `}>
         <div class={` flex sm:items-center justify-between py-2 border-b-2 border-gray-200 relative`}>
           <div class="flex items-center  fixed   bg-white-100  w-96 space-x-4">
             <img
-              src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
+              src={chattingData.image}
               alt=""
               class="w-10 p-3 sm:w-16 h-10 sm:h-16 rounded-full"
             />
             <div class="flex leading-tight">
               <div class="text-lg mt-1 flex items-center">
-                <span class="text-gray-700 text-sm  mr-2">Anderson Vanhron</span>
+                <span class="text-gray-700 text-sm  mr-2">{chattingData.username}</span>
                 <span class="text-green-500">
                   <svg width="10" height="10">
                     <circle cx="5" cy="5" r="5" fill="currentColor"></circle>
@@ -29,20 +29,21 @@ const Chat = ({openChatBox,changeChattinDataStatus}) => {
             
             </div>
             <span className="text-gray-400 animate-bounce hover:text-red-300 ">typing...</span>
-                <AiOutlineClose size="1.5rem" className="cursor-pointer text-pink" onClick={()=>{openChatBox(false)}} />
+                <AiOutlineClose size="1.5rem" className="cursor-pointer text-pink" onClick={()=>{closeChatBox()}} />
           </div>
          
         </div>
         <div
           id="messages"
-          class="flex flex-col space-y-4 p-8 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+          class="flex flex-col space-y-4 p-8 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch "
         >
-            <Reciver />
-            <Sender />
-            <Reciver />
-            <Reciver />
-            <Reciver />
-            <Reciver />
+            {chattingData.messages.map((i)=>{
+              if(i.send){
+                return <Sender msg={i.msg} />
+              }else if(i.recived){
+                return <Reciver msg={i.msg} />
+              }
+            })}
             
         </div>
        </div>

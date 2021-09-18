@@ -9,10 +9,13 @@ const App = () => {
          
             setChatting(data)
     }
+    function closeChat(){
+        setChatting(null)
+    }
     return (
         <>
            <Header /> 
-           <Home clickedUser={openChatBoxWithUserDetails} chattingData={chattingData}/>
+           <Home clickedUser={openChatBoxWithUserDetails} chattingData={chattingData} closeChatBox={closeChat}/>
            
         </>
     )
