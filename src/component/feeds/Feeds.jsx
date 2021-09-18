@@ -1,5 +1,5 @@
 import React from 'react'
-
+ 
 
 import Stories from './Stories'
 import AddPost from './AddPost'
@@ -13,8 +13,9 @@ const Feeds = ({flex}) => {
             < Stories />
          {/* addpost div */}
               <AddPost />
+             
            </div>
-
+         
         </div>
     )
 }

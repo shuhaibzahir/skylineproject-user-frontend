@@ -57,6 +57,7 @@ module.exports = {
         logow: "40px",
       },
     },
+   
   },
   variants: {
     extend: {

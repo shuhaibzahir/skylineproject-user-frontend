@@ -1,7 +1,7 @@
 import React from 'react'
 import Profile  from './Profile'
 import OnlinePoeple from './onlinePoeple'
-const Left = ({flex}) => {
+const Left = ({flex,clickedUser}) => {
     return (
         <div className={`${flex} `}>
             <div className={`min-h-withoutHeader bg-white-100  p-6 max-h-48 w-1/4 fixed overflow-auto `}>
@@ -11,7 +11,7 @@ const Left = ({flex}) => {
                 <Profile />
                 <h1 className="uppercase text-xl mt-6 font-semibold text-dark-gray ">Networks</h1>
                 {/* online persons form follwers */}
-               <OnlinePoeple />
+               <OnlinePoeple chattingUser={clickedUser} />
              </div>
         </div>
         </div>
