@@ -1,9 +1,10 @@
-import React,{useState} from "react";
+import React,{useContext} from "react";
 import Reciver from "./ResivedMessage"
 import Sender from "./SendingMessage"
 import {AiOutlineClose} from "react-icons/ai"
+import ChatDetails from "../../Contexts/ChatDetails";
 const Chat = ({closeChatBox,chattingData}) => {
- 
+  const{changeChattingDetails}= useContext(ChatDetails)
   return (
       
          <div className=" absolute max-w-md bottom-3 rounded-2xl bg-white-100  ">
@@ -29,7 +30,7 @@ const Chat = ({closeChatBox,chattingData}) => {
             
             </div>
             <span className="text-gray-400 animate-bounce hover:text-red-300 ">typing...</span>
-                <AiOutlineClose size="1.5rem" className="cursor-pointer text-pink" onClick={()=>{closeChatBox()}} />
+                <AiOutlineClose size="1.5rem" className="cursor-pointer text-pink" onClick={()=>{changeChattingDetails(null)}} />
           </div>
          
         </div>
@@ -37,15 +38,8 @@ const Chat = ({closeChatBox,chattingData}) => {
           id="messages"
           class="flex flex-col space-y-4 p-8 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch "
         >
-            {chattingData.messages.map((i)=>{
-              if(i.send){
-                return <Sender msg={i.msg} />
-              }else if(i.recived){
-                return <Reciver msg={i.msg} />
-              }
-            })}
-            
-        </div>
+            {chattingData.messages.map((i)=>i.send?<Sender msg={i.msg} />:<Reciver msg={i.msg} />)}
+         </div>
        </div>
        {/* sending panel */}
       <div class="border-t-2 border-gray-200 px-4  bottom-0 w-full pt-4 mb-2 sm:mb-0">

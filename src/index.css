@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
- 
+    .appliedButton{
+      backgroundColor:green;
+      color:white
+    }
     .no-scrollbar::-webkit-scrollbar {
         display: none;
       },
@@ -20,4 +23,5 @@
     ::-webkit-scrollbar-thumb {
         background: #FF0000;
     }
+
   }

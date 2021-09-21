@@ -1,7 +1,8 @@
 import { useRef, useState, Fragment } from "react";
-import { BiImageAdd, BiVideoPlus } from "react-icons/bi";
+import { BiImageAdd, BiVideoPlus  } from "react-icons/bi";
+import SendIcon from '@mui/icons-material/Send';
 import { AiOutlineTags } from "react-icons/ai";
-
+import Button from '@mui/material/Button';
 import { Dialog, Transition } from "@headlessui/react";
 
 const AddPost = () => {
@@ -24,7 +25,7 @@ const AddPost = () => {
           />
           <div>
             <h1>Jones Augestine</h1>
-            <select value={privacy} title="asa">
+            <select value={privacy} title="asa" onChange={(e)=>{setPrivacy(e.target.value)}}>
               <option value="public" selected>
                 Public
               </option>
@@ -85,12 +86,9 @@ const AddPost = () => {
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            className="mt-3 w-full inline-flex justify-center rounded-md border  duration-300 hover:text-white shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-pink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-          >
-            Add
-          </button>
+          <Button variant="contained" style={{backgroundColor:"#FF005C"}} endIcon={<SendIcon />}>
+            Send
+         </Button>
           </div>
         </div>
       </div>

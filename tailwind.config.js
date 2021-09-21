@@ -1,3 +1,4 @@
+ 
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "media", // or 'media' or 'class'
@@ -13,6 +14,9 @@ module.exports = {
         dark: "#262626",
         "white-100": "#F3F3F4",
       }),
+      backgroundImage:{
+        'signin':"url('https://cdn.pixabay.com/photo/2015/07/02/10/08/architecture-828596_960_720.jpg')"
+      },
       backgroundColor: (theme) => ({
         pink: "#FF005C",
         "dark-white": "#F7F6F2",
@@ -66,6 +70,7 @@ module.exports = {
       textColor: ["hover", "active"],
       transitionDuration: ["hover", "focus"],
       padding: ["hover"],
+      margin: ['hover', 'focus'],
     },
   },
   plugins: [
