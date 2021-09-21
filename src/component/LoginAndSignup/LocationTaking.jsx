@@ -29,7 +29,7 @@ import {
      
     }
     return (
-      <div>
+    
         <Autocomplete
         multiple
         id="checkboxes-tags-demo"
@@ -52,7 +52,7 @@ import {
           <TextField {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />
         )}
       />
-      </div>
+       
     )
   }
   
