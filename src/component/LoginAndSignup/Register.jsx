@@ -96,15 +96,15 @@ const Register = () => {
                       
                     </div>
                     </div>):
-                    ( <div className="relative flex justify-center">
+                    ( <div className="relative flex justify-center">gj
                     
                     <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
                       <h1 className="text-2xl" > Sign up to <span className="text-pink capitalize font-bold">skyline</span> </h1>
     
                      <div className="space-x-4 ">
                       
-                       <TextField id="outlined-username" className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label="Username" variant="outlined" />
-                        {usernameValidate&&<p>Please enter name</p>}
+                       <TextField id="outlined-username" className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label={`${usernameValidate?"Invalid UserName":"Username"}`} variant="outlined" />
+                        
                         <TextField id="outlined-email" className={classes.textColor}  label="Email" variant="outlined" />
                       </div>
                       <TextField id="outlined-phone" className={classes.inputfull}   label="Phone Number" variant="outlined" />
