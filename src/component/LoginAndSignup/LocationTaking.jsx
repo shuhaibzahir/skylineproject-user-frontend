@@ -1,4 +1,4 @@
-import React ,{useEffect,useState} from 'react';
+import React ,{useState} from 'react';
  
  
 import {
@@ -15,7 +15,7 @@ import {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   
-  export default function CheckboxesTags( ) {
+  export default function CheckboxesTags({locationDetails} ) {
    
     const [selectLocation,setLocation]=useState([])
  
@@ -31,6 +31,15 @@ import {
     return (
     
         <Autocomplete
+        onChange={(e,value)=>{
+          locationDetails((prev)=>{
+            return{
+              ...prev,
+              preferredLocation:value.map((i)=>i.long_name)
+            }
+          })
+        }}
+        
         multiple
         id="checkboxes-tags-demo"
         options={selectLocation}
@@ -49,7 +58,7 @@ import {
         )}
         style={{ width: 500 }}
         renderInput={(params) => (
-          <TextField {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />
+          <TextField   {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />
         )}
       />
        

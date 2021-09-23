@@ -71,6 +71,9 @@ module.exports = {
       transitionDuration: ["hover", "focus"],
       padding: ["hover"],
       margin: ['hover', 'focus'],
+      borderColor:['focus','hover'],
+      color:['focus','hover'],
+      border:['focus','hover'],
     },
   },
   plugins: [
