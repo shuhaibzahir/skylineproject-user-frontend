@@ -15,7 +15,7 @@ import {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   
-  export default function CheckboxesTags({locationDetails} ) {
+  export default function CheckboxesTags({locationDetails,prefferdlocationDataCheck} ) {
    
     const [selectLocation,setLocation]=useState([])
  
@@ -31,6 +31,7 @@ import {
     return (
     
         <Autocomplete
+       
         onChange={(e,value)=>{
           locationDetails((prev)=>{
             return{
@@ -58,7 +59,8 @@ import {
         )}
         style={{ width: 500 }}
         renderInput={(params) => (
-          <TextField   {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />
+          
+          <TextField   error={prefferdlocationDataCheck} {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />
         )}
       />
        

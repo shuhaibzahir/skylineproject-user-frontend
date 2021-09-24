@@ -4,20 +4,27 @@ import Header  from './component/header/Header'
 import Home from './component/pages/Home'
 import ChattindContext from "./Contexts/ChatDetails"
 import Singin from "./component/LoginAndSignup/Register"
+import UserContext from "./Contexts/userDetails"
 const App = () => {
  const [chatDetails, changeChattingDetails]=useState(null);
+ const [userDataFromDatabase,setUserDataFromServer] = useState(null)
    return (
         <>
+          <Router> 
+       <UserContext.Provider value={{userDataFromDatabase, setUserDataFromServer}}>    
         <ChattindContext.Provider value={{chatDetails, changeChattingDetails}}>
-           <Router>
-           {chatDetails&&<Header/> }
+         
+         
+           {userDataFromDatabase&&<Header/> }
            <Switch>
              <Route  path="/" exact component={Home} />
              <Route path="/signin" component={Singin} />
            </Switch>
           
-           </Router>
+         
            </ChattindContext.Provider>
+           </UserContext.Provider>
+           </Router>
         </>
     )
 }
