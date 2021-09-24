@@ -142,7 +142,7 @@ const updateData=(e)=>{
 
 
 
- // api calling.................................................
+ // api calling.. for signup ...............................................
     const [apierror ,setApierror]=useState()
 
    const signupApiCalling= ()=>{
@@ -199,7 +199,33 @@ const updateData=(e)=>{
       } 
    }
     
-   
+// signin calling.................................
+const [signInError, setSigninError] =useState('')
+const [signinEmail, setSigninEmail]=useState(false)
+const [signinPassword, setSigninPassword]=useState(false)
+const [signinData, setSignInData]= useState({
+    email:'',
+    password:''
+})
+
+const signInEmailValidation = (e)=>{
+    let validation = validator.isEmail(e.target.value)
+ 
+    if(validation){
+        setSigninError(false)
+    }else{
+        setSigninError(true)
+    }
+    setSignInData((prev)=>{
+        return {
+            ...prev,
+            email:e.target.value
+        }
+    })
+ }
+const signIn=()=>{
+
+}
 
 //   final return ............................... 
 if(!userDataFromDatabase){
@@ -234,7 +260,7 @@ if(!userDataFromDatabase){
                      </div>
                      </div>):
                      ( <div className="relative flex justify-center">
-                     
+                      
                      <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
                        <h1 className="text-2xl" > Sign up to <span className="text-pink capitalize font-bold">skyline</span> </h1>
      
