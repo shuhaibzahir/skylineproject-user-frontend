@@ -11,6 +11,7 @@ import validator from 'validator';
 import SendIcon from '@mui/icons-material/Send';
 import axios  from 'axios';
 import userContext from "../../Contexts/userDetails"
+import { IoMdReturnLeft } from 'react-icons/io';
 
 // makestyle........................................
 const useStyles = makeStyles((theme)=>({
@@ -209,23 +210,61 @@ const [signinData, setSignInData]= useState({
 })
 
 const signInEmailValidation = (e)=>{
+   
     let validation = validator.isEmail(e.target.value)
- 
+    console.log(validation)
     if(validation){
-        setSigninError(false)
+        setSigninEmail(false)
     }else{
-        setSigninError(true)
+        setSigninEmail(true)
     }
-    setSignInData((prev)=>{
+    console.log(e.target.value)
+    setSignInData(()=>{
         return {
-            ...prev,
+            ...signinData,
             email:e.target.value
         }
     })
  }
-const signIn=()=>{
+
+// password checking..................................
+const signinPasswordValidation =(e)=>{
+    let validation = e.target.isLength({min:3})
+    if(validation){
+        setSigninPassword(false)
+    }else{
+        setSigninPassword(true)
+    }
+    setSignInData((prev)=>{
+        return {...prev,password:e.target.value}
+    })
 
 }
+
+
+//  signin api..........................
+const signIn=()=>{
+    if(signinData.password.length ===0){
+        setSigninPassword(true)
+        return
+       
+    }
+    if(signinEmail===false&&signinPassword===false){
+        axios.post("/userSignin",signinData,{
+            headers:{
+                'content-type': 'application/json'
+            }
+        }).then((response)=>{
+            console.log(response.data)
+        }).catch((err)=>{
+            setSigninError(err.response)
+            console.log(err.response)
+
+        })
+    }else{
+        alert("Please Enter Valid Details")
+    }
+}   
 
 //   final return ............................... 
 if(!userDataFromDatabase){
@@ -247,11 +286,11 @@ if(!userDataFromDatabase){
                        <h1 className="text-2xl" > Sign In to <span className="text-pink capitalize font-bold">skyline</span> </h1>
      
                      
-                       <TextField id="outlined-email"    className={classes.inputfull}   label="Email or phone number" variant="outlined" />
-                       <TextField id="outlined-pass"    className={classes.inputfull}   label="Password" variant="outlined" />
-                       
+                       <TextField id="outlined-email"  error={signinEmail} value={signinData.email||""} className={classes.inputfull}  onChange={(e)=>{signInEmailValidation(e)}}  label={`${signinEmail?"Invalid Email":"Email"}`} variant="outlined" />
+                       <TextField id="outlined-pass"   error={signinPassword}  className={classes.inputfull}   onChange={(e)=>{signinPasswordValidation(e)}} label={`${signinPassword?"Please Enter Password":"Password"}`} variant="outlined" />
+                        <p>{signInError || ''}</p>
                          <div className="w-full px-7  flex items-center justify-between">
-                         <Button variant="contained" style={{backgroundColor:"#FF005C", color:"#ffff" }} endIcon={<SendIcon  />}> Sign In</Button>
+                         <Button variant="contained" style={{backgroundColor:"#FF005C", color:"#ffff" }} onClick={()=>{signIn()}} endIcon={<SendIcon  />}> Sign In</Button>
                          <p className="  ml-4">Doesn't have an account? <AiOutlineLogin onClick={()=>{setSignin(!signin)}} className="inline ml-4 text-dark-gray hover:text-pink cursor-pointer"  size="1.6rem "/></p>           
                          </div>
                       

@@ -20,9 +20,7 @@ const App = () => {
              <Route  path="/" exact component={Home} />
              <Route path="/signin" component={Singin} />
            </Switch>
-          
-         
-           </ChattindContext.Provider>
+            </ChattindContext.Provider>
            </UserContext.Provider>
            </Router>
         </>
