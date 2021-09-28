@@ -19,7 +19,7 @@ const Profile = () => {
             )
         }else{
             history.push("/signin")
-            return
+            return true
         }
        
  

@@ -23,7 +23,7 @@ const App = () => {
             
              <Route  path="/" exact component={Home} />
              <Route path="/signin" exact component={Singin} />
-             <Route path ="/profile/:userId" component={Profile} />
+             <Route path ="/profile/" component={Profile} />
              <Route path ="/logout" component={Logout} />
            </Switch>
             </ChattindContext.Provider>

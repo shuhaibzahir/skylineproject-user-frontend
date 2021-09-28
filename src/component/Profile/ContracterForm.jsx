@@ -17,7 +17,7 @@ const useStyle = makeStyles({
 const ContracterForm = ({modalClose}) => {
   const {userDataFromDatabase,setUserDataFromServer} =useContext(UserContext)
   const classes = useStyle()
-  const [personName, setPersonName] = useState([]);
+  const [services, setServices] = useState([]);
   const [fieldError,setFieldErro]= useState('')
   const [progress, setProgress]= useState(false)
   const [constructorDetails,setContractor] =useState({
@@ -36,6 +36,7 @@ const ContracterForm = ({modalClose}) => {
 
   // sending all data to the server
    const submitAllDetails =()=>{
+    
     if(constructorDetails.constructorId.length <=4){
       setFieldErro("Invalid Constructor Id")
       return
@@ -46,12 +47,32 @@ const ContracterForm = ({modalClose}) => {
       setFieldErro("Invalid Address")
       return
     }else if(constructorDetails.services.length==0){
+     
       setFieldErro("Please Select Services")
       return
     } 
+    
+     
     setFieldErro('')
     // api sending 
     setProgress(true)
+    axios.put("/applay/constructor/",constructorDetails,{
+      headers:{
+        'Authorization':`Bearer ${userDataFromDatabase.token}`
+      }
+    }).then((response)=>{
+      setProgress(false)
+      setUserDataFromServer((prev)=>{
+        return {...prev,user:response.data.user}
+      })
+     
+    }).catch((error)=>{
+      setFieldErro(error.data.apiError)
+      setProgress(false)
+      console.log(error)
+      
+    })
+
    }
   return (
     <div className="">
@@ -66,7 +87,7 @@ const ContracterForm = ({modalClose}) => {
             <TextField id="standard-basic" name="address"  value={constructorDetails.address} onChange={setAllDetails} label="Address " fullWidth variant="standard" />
             </div>
               <div className=" -ml-3">
-               <Addservice setPersonName={setPersonName} personName={personName}/>
+               <Addservice setServices={setServices} services={services} setContractor={setContractor}/>
              </div>
              <div>
                <p className="text-red-600 m-2">{fieldError}</p>

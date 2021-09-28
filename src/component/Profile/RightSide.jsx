@@ -1,17 +1,45 @@
 import React,{useContext,useState} from 'react'
 import Chat from '../chatbox/Chat'
- 
+ import UserContext from "../../Contexts/userDetails"
 import ChatDetails from '../../Contexts/ChatDetails'
 import {IoMdPhotos} from "react-icons/io"
 import {FaCalendar} from "react-icons/fa"
 import {RiUserReceived2Fill,RiUserShared2Fill} from "react-icons/ri"
 import ContractoForm from "./RegisterforContractor"
+
 const Right = ({flex}) => {
        const {chatDetails, setChatting}=useContext(ChatDetails)
-       const [loading, setLoading] = useState(false);
+       const {userDataFromDatabase,setUserDataFromServer}  = useContext(UserContext)
+        
        const [open, setOpen] = React.useState(false);
       const handleOpen = () => setOpen(true);
       const handleClose = () => setOpen(false);
+
+       const checkingApplied = ()=>{
+          console.log(userDataFromDatabase)
+          if(userDataFromDatabase.user.applied=="yes"&&userDataFromDatabase.user.constructorPower){
+             return true
+          }else if(userDataFromDatabase.user.applied=="pending"){
+             return(
+               <button disabled  type="button" className="flex group bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center  p-3 rounded-2xl ">
+               
+               <div className={` animate-spin rounded-full w-10 h-10  border-b-2  border-white  `}></div>
+               <span className="text-xl text-white ">Applied </span>
+     
+            </button>
+             )
+
+          }else {
+            return (
+               <button  onClick={handleOpen} type="button" className="flex group hover:bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center bg-pink p-3 rounded-2xl ">
+               
+               <span className="text-xl text-white ">Apply for contractor</span>
+     
+            </button>
+            )
+          }
+
+       }
 
      return (
         <div className={`${flex} `}>
@@ -37,16 +65,11 @@ const Right = ({flex}) => {
              <div className="flex items-center justify-start space-x-3 cursor-pointer  ">
              <RiUserShared2Fill size="1.5rem" className="text-dark-gray   hover:text-pink hover:mr-4 duration-300 ease-linear"/> <h1  className="text-xl text-dark-gray  hover:px-4 duration-300 ease-linear hover:text-pink">Following</h1>
              </div>
-            <button  onClick={handleOpen} type="button" className="flex group hover:bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center bg-pink p-3 rounded-2xl ">
-               
-                            <div className={`${loading?"":"hidden"} animate-spin rounded-full w-10 h-10  border-b-2  border-white  `}></div>
-                            <span className="text-xl text-white ">Apply for contractor</span>
-                  
-            </button>
+          
             
 
              </div>
-                
+                {checkingApplied()}
 
              </div>
             <div className="px-4">

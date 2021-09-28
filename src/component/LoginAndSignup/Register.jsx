@@ -58,11 +58,7 @@ const Register = () => {
    const [  emailValidation,setEmailValidation]= useState(false)
    const [progress,setProgress] = useState(false)
  
-    useEffect(() => {
-        if(userDataFromDatabase){
-            history.push('/')
-        }
-    }, [userDataFromDatabase])
+ 
 
    const [signUpData, setSingupData] = useState({
        username:'',

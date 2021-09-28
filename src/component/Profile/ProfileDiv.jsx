@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
- 
+import UserContext from "../../Contexts/userDetails"
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/EditLocationAlt';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
@@ -9,6 +9,7 @@ const Input = styled('input')({
     display: 'none',
   });
 const ProfileDiv = () => {
+    const {userDataFromDatabase} =useContext(UserContext)
     return (
         <div className="shadow p-4 rounded-2xl relative ">
            <div className="h-48 overflow-hidden flex items-center rounded-2xl">
@@ -19,8 +20,8 @@ const ProfileDiv = () => {
              <img src="https://thumbs.dreamstime.com/b/planet-earth-blue-human-eye-image-represents-56099889.jpg" className="w-36 h-36 rounded-full shadow-inside -mt-20 ml-5" alt="" />
              <div className="p-3 flex justify-between w-full items-center ">
              <div>
-             <h1 className="text-xl text-pink font-bold">shuhaib zahir</h1>
-             <p className="w-26">this is veru iddter</p>
+             <h1 className="text-xl text-pink font-bold">{userDataFromDatabase.user?.username ||''}</h1>
+             <p className="w-26">{`${userDataFromDatabase.user.services.join(" ")}`}</p>
              </div>
             <Button variant="outlined" endIcon={<EditIcon/>} >Edit Profile</Button>
  

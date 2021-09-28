@@ -40,18 +40,20 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelectChip({personName,setPersonName}) {
+export default function MultipleSelectChip({services,setServices,setContractor}) {
   const theme = useTheme();
   
 
   const handleChange = (event) => {
+    
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setServices(
       // On autofill we get a the stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
+    setContractor((prev)=>{return {...prev,services:value}})
   };
 
   return (
@@ -62,7 +64,7 @@ export default function MultipleSelectChip({personName,setPersonName}) {
           labelId="services"
           
           multiple
-          value={personName}
+          value={services}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Services" />}
           renderValue={(selected) => (
@@ -78,7 +80,7 @@ export default function MultipleSelectChip({personName,setPersonName}) {
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, personName, theme)}
+              style={getStyles(name, services, theme)}
             >
               {name}
             </MenuItem>

@@ -6,7 +6,7 @@ import AddPost from './AddPost'
 
 const Feeds = ({flex}) => {
     const {userDataFromDatabase} =useContext(userContext)
-    console.log(userDataFromDatabase)
+    
     return (
         <div  className={`${flex} min-h-withoutHeader w-full`}>
             
