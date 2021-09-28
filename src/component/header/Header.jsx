@@ -9,6 +9,7 @@ const Header = () => {
       <Left flex="flex-1"/>
       <Center flex="flex-3"/>
       <Right flex="flex-1"/>
+    
     </div>
   );
 };

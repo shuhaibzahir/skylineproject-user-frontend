@@ -11,7 +11,7 @@ import validator from 'validator';
 import SendIcon from '@mui/icons-material/Send';
 import axios  from 'axios';
 import userContext from "../../Contexts/userDetails"
-import { IoMdReturnLeft } from 'react-icons/io';
+import LinearProgress from '@mui/material/LinearProgress';
 
 // makestyle........................................
 const useStyles = makeStyles((theme)=>({
@@ -56,6 +56,7 @@ const Register = () => {
    const [  confirmPassValidate,setConfirmPassValidate]= useState(false)
    const [  phoneNumberValidate,setPhoneNumberValidate]= useState(false)
    const [  emailValidation,setEmailValidation]= useState(false)
+   const [progress,setProgress] = useState(false)
  
     useEffect(() => {
         if(userDataFromDatabase){
@@ -166,17 +167,18 @@ const updateData=(e)=>{
        
     }  else if(!usernameValidate&&!passwordValidate&&!confirmPassValidate&&!phoneNumberValidate&&!emailValidation&&signUpData.preferredLocation.length >0){
             // data passing to backend
-
+// ....................................................
+    setProgress(true)
         axios.post("/userSignup",signUpData,{
             headers: { 
                 'content-type': 'application/json'
              },
         }).then((response)=>{
-            console.log('data evide ethi')
+            setProgress(false)
             setUserDataFromServer(response.data)
             history.push("/")
         }).catch((err)=>{
-          
+            setProgress(false)
             console.log("error found")
             let errors = err.response.data.error
             let apierror = err.response.data.apiError
@@ -191,6 +193,8 @@ const updateData=(e)=>{
             }
             if(apierror){
                 setApierror(apierror)
+             }else{
+                 console.log(err)
              }
 
         })
@@ -199,11 +203,11 @@ const updateData=(e)=>{
         alert('please Enter Details') 
       } 
    }
-    
+  
 // signin calling.................................
 const [signInError, setSigninError] =useState('')
 const [signinEmail, setSigninEmail]=useState(false)
-const [signinPassword, setSigninPassword]=useState(false)
+ 
 const [signinData, setSignInData]= useState({
     email:'',
     password:''
@@ -212,13 +216,13 @@ const [signinData, setSignInData]= useState({
 const signInEmailValidation = (e)=>{
    
     let validation = validator.isEmail(e.target.value)
-    console.log(validation)
+    
     if(validation){
         setSigninEmail(false)
     }else{
         setSigninEmail(true)
     }
-    console.log(e.target.value)
+ 
     setSignInData(()=>{
         return {
             ...signinData,
@@ -229,12 +233,7 @@ const signInEmailValidation = (e)=>{
 
 // password checking..................................
 const signinPasswordValidation =(e)=>{
-    let validation = e.target.isLength({min:3})
-    if(validation){
-        setSigninPassword(false)
-    }else{
-        setSigninPassword(true)
-    }
+  
     setSignInData((prev)=>{
         return {...prev,password:e.target.value}
     })
@@ -244,22 +243,23 @@ const signinPasswordValidation =(e)=>{
 
 //  signin api..........................
 const signIn=()=>{
-    if(signinData.password.length ===0){
-        setSigninPassword(true)
-        return
-       
-    }
-    if(signinEmail===false&&signinPassword===false){
+     
+    if(signinEmail===false){
+        setProgress(true)
         axios.post("/userSignin",signinData,{
             headers:{
                 'content-type': 'application/json'
             }
         }).then((response)=>{
-            console.log(response.data)
+            setUserDataFromServer(response.data)
+            setProgress(false)
+            history.push("/")
         }).catch((err)=>{
-            setSigninError(err.response)
-            console.log(err.response)
-
+            setProgress(false)
+            let apierror = err.response.data.apiError
+            if(apierror){
+                setSigninError(apierror)
+            }
         })
     }else{
         alert("Please Enter Valid Details")
@@ -281,14 +281,16 @@ if(!userDataFromDatabase){
              <div className="flex-3 bg-white-100 ">
                  {/* form div */}
                 {signin?( <div className="relative flex justify-center">
-                     
+                    
                      <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
                        <h1 className="text-2xl" > Sign In to <span className="text-pink capitalize font-bold">skyline</span> </h1>
-     
+                        <div className={`w-1/2 rounded-full ${progress?"":"hidden"}`}>
+                        <LinearProgress />
+                        </div>
                      
                        <TextField id="outlined-email"  error={signinEmail} value={signinData.email||""} className={classes.inputfull}  onChange={(e)=>{signInEmailValidation(e)}}  label={`${signinEmail?"Invalid Email":"Email"}`} variant="outlined" />
-                       <TextField id="outlined-pass"   error={signinPassword}  className={classes.inputfull}   onChange={(e)=>{signinPasswordValidation(e)}} label={`${signinPassword?"Please Enter Password":"Password"}`} variant="outlined" />
-                        <p>{signInError || ''}</p>
+                       <TextField id="outlined-pass"     className={classes.inputfull}   onChange={(e)=>{signinPasswordValidation(e)}} label="Enter Password" variant="outlined" />
+                        <p>{signInError}</p>
                          <div className="w-full px-7  flex items-center justify-between">
                          <Button variant="contained" style={{backgroundColor:"#FF005C", color:"#ffff" }} onClick={()=>{signIn()}} endIcon={<SendIcon  />}> Sign In</Button>
                          <p className="  ml-4">Doesn't have an account? <AiOutlineLogin onClick={()=>{setSignin(!signin)}} className="inline ml-4 text-dark-gray hover:text-pink cursor-pointer"  size="1.6rem "/></p>           
@@ -302,7 +304,9 @@ if(!userDataFromDatabase){
                       
                      <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
                        <h1 className="text-2xl" > Sign up to <span className="text-pink capitalize font-bold">skyline</span> </h1>
-     
+                       <div className={`w-1/2 rounded-full ${progress?"":"hidden"}`}>
+                        <LinearProgress />
+                        </div>
                       <div className="space-x-4 ">
                        
                         <TextField id="outlined-username" name="username" value={signUpData.username} className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label={`${usernameValidate?"Invalid UserName":"Username"}`} variant="outlined" />
@@ -320,10 +324,7 @@ if(!userDataFromDatabase){
                          <Button variant="contained" style={{color:"#ffff"}} onClick={()=>{signupApiCalling()}} endIcon={<SendIcon />}> Sign Up</Button>
                          <p className="  ml-4">Do you have already account? <AiOutlineLogin  onClick={()=>{setSignin(!signin)}}  className="inline ml-4 text-dark-gray hover:text-pink cursor-pointer"  size="1.6rem "/></p>           
                          </div>
-                      
-                        
-                       
-                     </div>
+                      </div>
                      </div>) 
                        }
               </div>            

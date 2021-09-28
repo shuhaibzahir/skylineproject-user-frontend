@@ -1,21 +1,19 @@
 import React,{useContext} from 'react'
- 
+ import ProfileDiv from "./ProfileDiv"
 import userContext from "../../Contexts/userDetails"
-import Stories from './Stories'
-import AddPost from './AddPost'
-
+ 
 const Feeds = ({flex}) => {
     const {userDataFromDatabase} =useContext(userContext)
-    console.log(userDataFromDatabase)
+ 
     return (
         <div  className={`${flex} min-h-withoutHeader w-full`}>
             
-           <div className="p-6 ml-6 w-full  ">
-          
-            < Stories />
-         {/* addpost div */}
-            
-             {userDataFromDatabase.constructorPower&&<AddPost />}  
+           <div className="p-6 ml-6 w-full ">
+
+                <div className="bg-re-400">
+                    <ProfileDiv />
+                </div>
+
              
            </div>
          
