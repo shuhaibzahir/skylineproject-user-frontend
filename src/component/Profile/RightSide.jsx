@@ -16,14 +16,14 @@ const Right = ({flex}) => {
       const handleClose = () => setOpen(false);
 
        const checkingApplied = ()=>{
-          console.log(userDataFromDatabase)
+         
           if(userDataFromDatabase.user.applied=="yes"&&userDataFromDatabase.user.constructorPower){
              return true
           }else if(userDataFromDatabase.user.applied=="pending"){
              return(
                <button disabled  type="button" className="flex group bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center  p-3 rounded-2xl ">
                
-               <div className={` animate-spin rounded-full w-10 h-10  border-b-2  border-white  `}></div>
+               
                <span className="text-xl text-white ">Applied </span>
      
             </button>
@@ -70,6 +70,7 @@ const Right = ({flex}) => {
 
              </div>
                 {checkingApplied()}
+                {userDataFromDatabase.user.rejected&&<p className="text-red-400 text-xl">Application Rejected</p>}
 
              </div>
             <div className="px-4">

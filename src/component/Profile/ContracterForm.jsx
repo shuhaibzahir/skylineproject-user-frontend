@@ -65,7 +65,7 @@ const ContracterForm = ({modalClose}) => {
       setUserDataFromServer((prev)=>{
         return {...prev,user:response.data.user}
       })
-     
+      modalClose()
     }).catch((error)=>{
       setFieldErro(error.data.apiError)
       setProgress(false)

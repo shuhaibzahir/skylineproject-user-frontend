@@ -172,6 +172,7 @@ const updateData=(e)=>{
         }).then((response)=>{
             setProgress(false)
             setUserDataFromServer(response.data)
+            localStorage.setItem("token",JSON.stringify(response.data.token))
             history.push("/")
         }).catch((err)=>{
             setProgress(false)
@@ -248,6 +249,7 @@ const signIn=()=>{
             }
         }).then((response)=>{
             setUserDataFromServer(response.data)
+            localStorage.setItem("token",JSON.stringify(response.data.token))
             setProgress(false)
             history.push("/")
         }).catch((err)=>{
@@ -303,9 +305,9 @@ if(!userDataFromDatabase){
                        <div className={`w-1/2 rounded-full ${progress?"":"hidden"}`}>
                         <LinearProgress />
                         </div>
-                      <div className="space-x-4 ">
+                      <div className="space-x-4  w-full px-8 ">
                        
-                        <TextField id="outlined-username" name="username" value={signUpData.username} className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label={`${usernameValidate?"Invalid UserName":"Username"}`} variant="outlined" />
+                        <TextField id="outlined-username"  name="username" value={signUpData.username} className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label={`${usernameValidate?"Invalid UserName":"Username"}`} variant="outlined" />
                          
                          <TextField id="outlined-email" name="email" value={signUpData.email} className={classes.textColor} error={emailValidation} onChange={(e)=>{checkEmail(e)}} label={`${emailValidation?"Invalid Email":"Email"}`} variant="outlined" />
                        </div>

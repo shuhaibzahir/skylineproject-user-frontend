@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {BrowserRouter as Router , Route, Switch} from "react-router-dom"
 import Header  from './component/header/Header'
 import Home from './component/pages/Home'
@@ -10,14 +10,21 @@ import Profile from "./component/pages/Profile"
 const App = () => {
  const [chatDetails, changeChattingDetails]=useState(null);
  const [userDataFromDatabase,setUserDataFromServer] = useState(null)
+ const [localToken,setLocalToken]=useState(null)
+ useEffect(()=>{
+   let data = localStorage.getItem("token")
+   data = JSON.parse(data)
+   setLocalToken(data)
+
+ },[localToken])
    return (
         <>
           <Router> 
        <UserContext.Provider value={{userDataFromDatabase, setUserDataFromServer}}>    
         <ChattindContext.Provider value={{chatDetails, changeChattingDetails}}>
          
-         
-           {userDataFromDatabase&&<Header/> }
+
+           {localToken&&<Header/> }
       
            <Switch>
             
