@@ -10,13 +10,21 @@ import Profile from "./component/pages/Profile"
 const App = () => {
  const [chatDetails, changeChattingDetails]=useState(null);
  const [userDataFromDatabase,setUserDataFromServer] = useState(null)
- const [localToken,setLocalToken]=useState(null)
- useEffect(()=>{
-   let data = localStorage.getItem("token")
-   data = JSON.parse(data)
-   setLocalToken(data)
+ 
+ 
+   let data = localStorage.getItem("userChecking")
+   data = JSON.parse(data) || null
+   console.log(data)
 
- },[localToken])
+    const header =()=>{
+      if(data){
+        return <Header/>
+      }else if(userDataFromDatabase){
+        return <Header/>
+      }
+    }
+    
+ 
    return (
         <>
           <Router> 
@@ -24,7 +32,7 @@ const App = () => {
         <ChattindContext.Provider value={{chatDetails, changeChattingDetails}}>
          
 
-           {localToken&&<Header/> }
+           {header()}
       
            <Switch>
             

@@ -1,11 +1,11 @@
-import React,{useContext} from 'react'
+import React from 'react'
  
-import userContext from "../../Contexts/userDetails"
 import Stories from './Stories'
 import AddPost from './AddPost'
 
 const Feeds = ({flex}) => {
-    const {userDataFromDatabase} =useContext(userContext)
+    let checkUserData = localStorage.getItem("userChecking")
+    checkUserData = checkUserData?JSON.parse(checkUserData):null
     
     return (
         <div  className={`${flex} min-h-withoutHeader w-full`}>
@@ -15,7 +15,7 @@ const Feeds = ({flex}) => {
             < Stories />
          {/* addpost div */}
             
-             {userDataFromDatabase.constructorPower&&<AddPost />}  
+             {checkUserData?.user?.constructorPower&&<AddPost />}  
              
            </div>
          

@@ -1,6 +1,6 @@
  
 import React, { useState,useContext ,useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory ,Redirect} from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
 import Locations from "./LocationTaking"
@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import validator from 'validator';
 import SendIcon from '@mui/icons-material/Send';
 import axios  from 'axios';
-import userContext from "../../Contexts/userDetails"
+ import UserContext from "../../Contexts/userDetails"
 import LinearProgress from '@mui/material/LinearProgress';
 
 // makestyle........................................
@@ -47,8 +47,8 @@ const theme = createTheme({
 
 // validation useStates.....................
 const Register = () => {
-    let history = useHistory()
-    const {userDataFromDatabase,setUserDataFromServer}= useContext(userContext)
+   let history = useHistory()
+   const {setUserDataFromServer} = useContext(UserContext)
    const classes = useStyles();
    const [signin, setSignin]= useState(true)
    const [  usernameValidate,setUserNameVallidate]= useState(false)
@@ -58,8 +58,8 @@ const Register = () => {
    const [  emailValidation,setEmailValidation]= useState(false)
    const [progress,setProgress] = useState(false)
  
- 
-
+//  checking the user loged in if the user is there then it will re direct to the home page
+   
    const [signUpData, setSingupData] = useState({
        username:'',
        email:'',
@@ -162,7 +162,7 @@ const updateData=(e)=>{
         alert("please Select Perfered location")
        
     }  else if(!usernameValidate&&!passwordValidate&&!confirmPassValidate&&!phoneNumberValidate&&!emailValidation&&signUpData.preferredLocation.length >0){
-            // data passing to backend
+// data passing to backend
 // ....................................................
     setProgress(true)
         axios.post("/userSignup",signUpData,{
@@ -171,8 +171,9 @@ const updateData=(e)=>{
              },
         }).then((response)=>{
             setProgress(false)
+            
+            localStorage.setItem("userChecking",JSON.stringify(response.data))
             setUserDataFromServer(response.data)
-            localStorage.setItem("token",JSON.stringify(response.data.token))
             history.push("/")
         }).catch((err)=>{
             setProgress(false)
@@ -248,8 +249,8 @@ const signIn=()=>{
                 'content-type': 'application/json'
             }
         }).then((response)=>{
-            setUserDataFromServer(response.data)
-            localStorage.setItem("token",JSON.stringify(response.data.token))
+          localStorage.setItem("userChecking",JSON.stringify(response.data))
+          setUserDataFromServer(response.data)
             setProgress(false)
             history.push("/")
         }).catch((err)=>{
@@ -263,9 +264,16 @@ const signIn=()=>{
         alert("Please Enter Valid Details")
     }
 }   
+ 
 
 //   final return ............................... 
-if(!userDataFromDatabase){
+let checkUserData = localStorage.getItem("userChecking")
+checkUserData = checkUserData?JSON.parse(checkUserData):null
+if(checkUserData){
+    history.push("/")
+    return true
+} 
+
     return (
         <ThemeProvider theme={theme}>
          <div className="flex">
@@ -329,10 +337,7 @@ if(!userDataFromDatabase){
          </div>
          </ThemeProvider>
      )
-}else{
-    history.push("/")
-    return true
-}
+ 
   
 }
 

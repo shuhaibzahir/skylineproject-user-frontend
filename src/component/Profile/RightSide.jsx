@@ -1,6 +1,6 @@
 import React,{useContext,useState} from 'react'
 import Chat from '../chatbox/Chat'
- import UserContext from "../../Contexts/userDetails"
+ 
 import ChatDetails from '../../Contexts/ChatDetails'
 import {IoMdPhotos} from "react-icons/io"
 import {FaCalendar} from "react-icons/fa"
@@ -9,7 +9,8 @@ import ContractoForm from "./RegisterforContractor"
 
 const Right = ({flex}) => {
        const {chatDetails, setChatting}=useContext(ChatDetails)
-       const {userDataFromDatabase,setUserDataFromServer}  = useContext(UserContext)
+       let checkUserData = localStorage.getItem("userChecking")
+       checkUserData = checkUserData?JSON.parse(checkUserData):null
         
        const [open, setOpen] = React.useState(false);
       const handleOpen = () => setOpen(true);
@@ -17,9 +18,9 @@ const Right = ({flex}) => {
 
        const checkingApplied = ()=>{
          
-          if(userDataFromDatabase.user.applied=="yes"&&userDataFromDatabase.user.constructorPower){
+          if(checkUserData?.user?.applied=="yes"&&checkUserData?.user?.constructorPower){
              return true
-          }else if(userDataFromDatabase.user.applied=="pending"){
+          }else if(checkUserData.user.applied=="pending"){
              return(
                <button disabled  type="button" className="flex group bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center  p-3 rounded-2xl ">
                
@@ -70,7 +71,7 @@ const Right = ({flex}) => {
 
              </div>
                 {checkingApplied()}
-                {userDataFromDatabase.user.rejected&&<p className="text-red-400 text-xl">Application Rejected</p>}
+                {checkUserData.user.rejected&&<p className="text-red-400 text-xl">Application Rejected</p>}
 
              </div>
             <div className="px-4">

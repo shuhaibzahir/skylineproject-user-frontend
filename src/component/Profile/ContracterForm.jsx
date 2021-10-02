@@ -16,6 +16,8 @@ const useStyle = makeStyles({
 })
 const ContracterForm = ({modalClose}) => {
   const {userDataFromDatabase,setUserDataFromServer} =useContext(UserContext)
+  let checkUserData = localStorage.getItem("userChecking")
+    checkUserData = checkUserData?JSON.parse(checkUserData):null
   const classes = useStyle()
   const [services, setServices] = useState([]);
   const [fieldError,setFieldErro]= useState('')
@@ -58,13 +60,14 @@ const ContracterForm = ({modalClose}) => {
     setProgress(true)
     axios.put("/applay/constructor/",constructorDetails,{
       headers:{
-        'Authorization':`Bearer ${userDataFromDatabase.token}`
+        'Authorization':`Bearer ${checkUserData.token}`
       }
     }).then((response)=>{
       setProgress(false)
-      setUserDataFromServer((prev)=>{
-        return {...prev,user:response.data.user}
-      })
+      let storageData = localStorage.getItem("userChecking")
+      storageData = JSON.parse(checkUserData) 
+        let newData = {...storageData,user:response.data.user}
+        localStorage.setItem("userChecking",JSON.stringify(newData))
       modalClose()
     }).catch((error)=>{
       setFieldErro(error.data.apiError)

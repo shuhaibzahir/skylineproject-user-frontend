@@ -9,7 +9,8 @@ const Input = styled('input')({
     display: 'none',
   });
 const ProfileDiv = () => {
-    const {userDataFromDatabase} =useContext(UserContext)
+    let checkUserData = localStorage.getItem("userChecking")
+    checkUserData = checkUserData?JSON.parse(checkUserData):null
     return (
         <div className="shadow p-4 rounded-2xl relative ">
            <div className="h-48 overflow-hidden flex items-center rounded-2xl">
@@ -20,8 +21,8 @@ const ProfileDiv = () => {
              <img src="https://thumbs.dreamstime.com/b/planet-earth-blue-human-eye-image-represents-56099889.jpg" className="w-36 h-36 rounded-full shadow-inside -mt-20 ml-5" alt="" />
              <div className="p-3 flex justify-between w-full items-center ">
              <div>
-             <h1 className="text-xl text-pink font-bold">{userDataFromDatabase.user?.username ||''}</h1>
-             <p className="w-26">{`${userDataFromDatabase.user.services.join(" ")}`}</p>
+             <h1 className="text-xl text-pink font-bold">{checkUserData.user?.username ||''}</h1>
+             <p className="w-26">{`${checkUserData?.user?.constructorPower&&checkUserData.user.services.join(" ")}`}</p>
              </div>
             <Button variant="outlined" endIcon={<EditIcon/>} >Edit Profile</Button>
  
