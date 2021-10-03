@@ -4,7 +4,7 @@ import userContext from '../../Contexts/userDetails'
 const Singout = () => {
     const {setUserDataFromServer} = useContext(userContext)
     
-    setUserDataFromServer(null)
+    setUserDataFromServer('')
    localStorage.removeItem("userChecking")
     
     return <Redirect to="/signin"/>

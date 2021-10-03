@@ -33,8 +33,8 @@ const ProfileDiv = () => {
       <div className="rounded-2xl flex items-center  ">
           {/* profile photo */}
         <img
-        onError="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png"
-        src={image}
+        onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg"}}
+         src={image}
            className="w-36 h-36 rounded-full shadow-inside -mt-20 ml-5"
           alt=""
         />

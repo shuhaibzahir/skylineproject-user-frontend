@@ -13,6 +13,8 @@ import axios  from 'axios';
  import UserContext from "../../Contexts/userDetails"
 import LinearProgress from '@mui/material/LinearProgress';
 
+/* ------------------------------------ bcrypt initialize ----------------------------------- */
+
 // makestyle........................................
 const useStyles = makeStyles((theme)=>({
     

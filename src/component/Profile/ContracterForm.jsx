@@ -65,12 +65,16 @@ const ContracterForm = ({modalClose}) => {
     }).then((response)=>{
       setProgress(false)
       let storageData = localStorage.getItem("userChecking")
-      storageData = JSON.parse(checkUserData) 
+      console.log(storageData)
+      storageData = JSON.parse(JSON.stringify(checkUserData))
+      console.log(storageData) 
+      console.log("this is localstorage data",storageData)
         let newData = {...storageData,user:response.data.user}
         localStorage.setItem("userChecking",JSON.stringify(newData))
       modalClose()
     }).catch((error)=>{
-      setFieldErro(error.data.apiError)
+      console.log(error)
+      // setFieldErro(error.data.apiError)
       setProgress(false)
       console.log(error)
       
