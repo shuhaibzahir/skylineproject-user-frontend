@@ -2,10 +2,10 @@ import React from 'react'
  
 import Stories from './Stories'
 import AddPost from './AddPost'
-
+import { decryptData } from '../../Middleware/crypto'
 const Feeds = ({flex}) => {
     let checkUserData = localStorage.getItem("userChecking")
-    checkUserData = checkUserData?JSON.parse(checkUserData):null
+    let decrypedUserDetails = decryptData(checkUserData)
     
     return (
         <div  className={`${flex} min-h-withoutHeader w-full`}>
@@ -15,7 +15,7 @@ const Feeds = ({flex}) => {
             < Stories />
          {/* addpost div */}
             
-             {checkUserData?.user?.constructorPower&&<AddPost />}  
+             {decrypedUserDetails?.user?.constructorPower&&<AddPost />}  
              
            </div>
          

@@ -7,6 +7,8 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import UserContext from "../../Contexts/userDetails"
+import {decryptData,encryptData} from "../../Middleware/crypto"
+
 const useStyle = makeStyles({
   btn:{
     backgroundColor:"#FF005C",
@@ -14,10 +16,14 @@ const useStyle = makeStyles({
     margin:"10px"
   }
 })
+
+
+
+
 const ContracterForm = ({modalClose}) => {
   const {userDataFromDatabase,setUserDataFromServer} =useContext(UserContext)
   let checkUserData = localStorage.getItem("userChecking")
-    checkUserData = checkUserData?JSON.parse(checkUserData):null
+   let decryptedUserDetails = decryptData(checkUserData)
   const classes = useStyle()
   const [services, setServices] = useState([]);
   const [fieldError,setFieldErro]= useState('')
@@ -60,17 +66,16 @@ const ContracterForm = ({modalClose}) => {
     setProgress(true)
     axios.put("/applay/constructor/",constructorDetails,{
       headers:{
-        'Authorization':`Bearer ${checkUserData.token}`
+        'Authorization':`Bearer ${decryptedUserDetails.token}`
       }
     }).then((response)=>{
       setProgress(false)
       let storageData = localStorage.getItem("userChecking")
-      console.log(storageData)
-      storageData = JSON.parse(JSON.stringify(checkUserData))
-      console.log(storageData) 
-      console.log("this is localstorage data",storageData)
-        let newData = {...storageData,user:response.data.user}
-        localStorage.setItem("userChecking",JSON.stringify(newData))
+       let decryptingData  = decryptData(storageData) 
+       
+        let newData = {...decryptingData,user:response.data.user}
+        let encryptingNewData = encryptData(newData)
+        localStorage.setItem("userChecking",encryptingNewData)
       modalClose()
     }).catch((error)=>{
       console.log(error)

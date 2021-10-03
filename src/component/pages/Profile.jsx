@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom';
 import Center from "../../component/Profile/Center"
 import Left from "../../component/left-side/Left"
 import RightSide from "../../component/Profile/RightSide"
- 
+import { decryptData } from "../../Middleware/crypto"; 
 
 const Profile = () => {
     let history = useHistory();
     let checkUserData = localStorage.getItem("userChecking")
-    checkUserData = checkUserData?JSON.parse(checkUserData):null
+   let decryptedUserDetails = decryptData(checkUserData)
 // checking user if the user is there run the next else the router will be executed
-    if(!checkUserData){
+    if(!decryptedUserDetails){
         history.push("/signin")
         return true 
     }

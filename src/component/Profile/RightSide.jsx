@@ -6,21 +6,21 @@ import {IoMdPhotos} from "react-icons/io"
 import {FaCalendar} from "react-icons/fa"
 import {RiUserReceived2Fill,RiUserShared2Fill} from "react-icons/ri"
 import ContractoForm from "./RegisterforContractor"
-
+import {decryptData} from "../../Middleware/crypto"
 const Right = ({flex}) => {
        const {chatDetails, setChatting}=useContext(ChatDetails)
        let checkUserData = localStorage.getItem("userChecking")
-       checkUserData = checkUserData?JSON.parse(checkUserData):null
+      let decryptedUser = decryptData(checkUserData)
         
-       const [open, setOpen] = React.useState(false);
+       const [open, setOpen] = useState(false);
       const handleOpen = () => setOpen(true);
       const handleClose = () => setOpen(false);
 
        const checkingApplied = ()=>{
          
-          if(checkUserData?.user?.applied=="yes"&&checkUserData?.user?.constructorPower){
+          if(decryptedUser?.user?.applied=="yes"&&decryptedUser?.user?.constructorPower){
              return true
-          }else if(checkUserData.user.applied=="pending"){
+          }else if(decryptedUser.user.applied=="pending"){
              return(
                <button disabled  type="button" className="flex group bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center  p-3 rounded-2xl ">
                
@@ -71,7 +71,7 @@ const Right = ({flex}) => {
 
              </div>
                 {checkingApplied()}
-                {checkUserData.user.rejected&&<p className="text-red-400 text-xl">Application Rejected</p>}
+                {decryptedUser.user.rejected&&<p className="text-red-400 text-xl">Application Rejected</p>}
 
              </div>
             <div className="px-4">

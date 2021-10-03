@@ -7,17 +7,18 @@ import Singin from "./component/LoginAndSignup/Register"
 import UserContext from "./Contexts/userDetails"
 import Logout from "./component/LoginAndSignup/Singout"
 import Profile from "./component/pages/Profile"
+import { decryptData } from './Middleware/crypto'
+
 const App = () => {
  const [chatDetails, changeChattingDetails]=useState(null);
  const [userDataFromDatabase,setUserDataFromServer] = useState(null)
  
  
    let data = localStorage.getItem("userChecking")
-   data = JSON.parse(data) || null
-   console.log(data)
+    let decryptedUserDetails = decryptData(data)
 
     const header =()=>{
-      if(data){
+      if(decryptedUserDetails){
         return <Header/>
       }else if(userDataFromDatabase){
         return <Header/>

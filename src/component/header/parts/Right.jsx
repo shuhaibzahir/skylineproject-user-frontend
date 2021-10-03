@@ -3,13 +3,13 @@ import {FiSettings} from "react-icons/fi"
 import {RiUserSharedFill} from "react-icons/ri"
 import {FaUserCog,FaUser} from "react-icons/fa"
 import {IoIosCloseCircleOutline} from "react-icons/io"
- 
+ import {decryptData} from "../../../Middleware/crypto"
 import { Link } from 'react-router-dom'
  
 const Right = ({flex}) => {
   const [openOption, setOpen]=useState(false)
   let checkUserData = localStorage.getItem("userChecking")
-  checkUserData = checkUserData?JSON.parse(checkUserData):null
+  const decrypted = decryptData(checkUserData)
 
     return (
         <div className={`${flex}   items-center rounded-full    w-full `}>
@@ -18,7 +18,7 @@ const Right = ({flex}) => {
      
        <div className={`${openOption?"hidden":"flex"} duration-300  items-center justify-center space-x-4`}>
                 <img src="https://yt3.ggpht.com/ytc/AKedOLTIbYSBxZvTQV8isj_TFE3KkXyyLBTxfdAypcfiqQ=s900-c-k-c0x00ffffff-no-rj" className="rounded-full h-8 " alt="" />
-                <h3>{checkUserData.user?.username || ''}</h3>
+                <h3>{decrypted.user?.username || ''}</h3>
         </div>
            <div  className={`${openOption?"hidden":""} bg-white hover:bg-pink hover:text-white duration-200 p-2 cursor-pointer rounded-full text-pink`} onClick={()=>setOpen(!openOption)}>
                 <FiSettings size="1.5rem"   />

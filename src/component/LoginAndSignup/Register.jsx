@@ -13,8 +13,8 @@ import axios  from 'axios';
  import UserContext from "../../Contexts/userDetails"
 import LinearProgress from '@mui/material/LinearProgress';
 
-/* ------------------------------------ bcrypt initialize ----------------------------------- */
-
+/* ------------------------------------ crypto js initialize ----------------------------------- */
+import { encryptData,decryptData } from '../../Middleware/crypto';
 // makestyle........................................
 const useStyles = makeStyles((theme)=>({
     
@@ -173,8 +173,8 @@ const updateData=(e)=>{
              },
         }).then((response)=>{
             setProgress(false)
-            
-            localStorage.setItem("userChecking",JSON.stringify(response.data))
+            const encrypted = encryptData(response.data)
+            localStorage.setItem("userChecking",encrypted)
             setUserDataFromServer(response.data)
             history.push("/")
         }).catch((err)=>{
@@ -251,7 +251,8 @@ const signIn=()=>{
                 'content-type': 'application/json'
             }
         }).then((response)=>{
-          localStorage.setItem("userChecking",JSON.stringify(response.data))
+            const encrypted = encryptData(response.data)
+            localStorage.setItem("userChecking",encrypted)
           setUserDataFromServer(response.data)
             setProgress(false)
             history.push("/")
@@ -270,12 +271,14 @@ const signIn=()=>{
 
 //   final return ............................... 
 let checkUserData = localStorage.getItem("userChecking")
-checkUserData = checkUserData?JSON.parse(checkUserData):null
+    
 if(checkUserData){
-    history.push("/")
+    const decrypted = decryptData(checkUserData)
+    if(decrypted){
+        history.push("/")
     return true
-} 
-
+    }
+ }  
     return (
         <ThemeProvider theme={theme}>
          <div className="flex">

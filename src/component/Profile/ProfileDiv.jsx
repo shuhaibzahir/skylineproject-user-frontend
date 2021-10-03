@@ -3,58 +3,107 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import UserContext from "../../Contexts/userDetails";
 import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import EditIcon from "@mui/icons-material/EditLocationAlt";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { decryptData } from "../../Middleware/crypto";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+
 const Input = styled("input")({
   display: "none",
 });
 
 const ProfileDiv = () => {
   let checkUserData = localStorage.getItem("userChecking");
-  checkUserData = checkUserData ? JSON.parse(checkUserData) : null;
+  let decryptedUserDetails = decryptData(checkUserData);
 
-  const [image, setImage] = useState({ preview: "", raw: "" });
-
+  const [image, setImage] = useState('');
+  const [editProfileButtonOrProfileUpdate, setButton] = useState(false);
   const changeProfilePic = (e) => {
-    let newImage= URL.createObjectURL(e.target.files[0])
-     setImage(newImage);
+    let newImage = URL.createObjectURL(e.target.files[0]);
+    setButton(true);
+    setImage(newImage);
+  };
+
+  const cancelUpdateProfilePic =()=>{
+    let checkUserData = localStorage.getItem("userChecking");
+    let decryptedUserDetails = decryptData(checkUserData);
+    const updateOld = decryptedUserDetails.profile || ''
+    setImage(updateOld);
+    setButton(false)
   }
+
+
+
+
+
+
+
+
+
+
+
   /*******************************  Profile Div *******************************************/
   return (
     <div className="shadow p-4 rounded-2xl relative ">
       <div className="h-48 overflow-hidden flex items-center rounded-2xl">
-          {/* cover photo */}
+        {/* cover photo */}
         <img
-          src="https://previews.123rf.com/images/artshock/artshock1210/artshock121000046/15557821-imag-of-water-drops-on-window-and-blue-sky-background.jpg"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src =
+              "https://media.istockphoto.com/photos/colorful-gradient-pink-magenta-abstract-background-picture-id1059836414?k=20&m=1059836414&s=170667a&w=0&h=5WVpLbctBNZo406v7r8UmuuPbkyE-lwhDcJTfqgP_hE=";
+          }}
+          src=""
           className="w-full  "
           alt=""
         />
       </div>
       <div className="rounded-2xl flex items-center  ">
-          {/* profile photo */}
+        {/* profile photo */}
         <img
-        onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg"}}
-         src={image}
-           className="w-36 h-36 rounded-full shadow-inside -mt-20 ml-5"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src =
+              "https://global-uploads.webflow.com/5e4627609401e01182af1cce/5eb13bfdb4659efea4f8dace_profile-dummy.png";
+          }}
+          src={image}
+          className="w-36 h-36 rounded-full  -mt-20 ml-5"
           alt=""
         />
-     
+
         <div className="p-3 flex justify-between w-full items-center ">
           <div>
             <h1 className="text-xl text-pink font-bold">
-              {checkUserData.user?.username || ""}
+              {decryptedUserDetails.user?.username || ""}
             </h1>
             <p className="w-26">{`${
-              checkUserData?.user?.constructorPower &&
-              checkUserData.user.services.join(" ")
+              decryptedUserDetails.user.constructorPower
+                ? decryptedUserDetails.user.services.join(" ")
+                : ""
             }`}</p>
           </div>
-          <Button variant="outlined" endIcon={<EditIcon />}>
-            Edit Profile
-          </Button>
+
+          {/* updat profile pic or edit profile button */}
+          {editProfileButtonOrProfileUpdate ? (
+            <ButtonGroup
+              variant="outlined"
+              
+            >
+              <Button><CheckCircleIcon/></Button>
+              <Button onClick={()=>{cancelUpdateProfilePic()}} color="error"><HighlightOffIcon/></Button>
+             
+            </ButtonGroup>
+          ) : (
+            <Button variant="outlined" endIcon={<EditIcon />}>
+              Edit Profile
+            </Button>
+          )}
         </div>
       </div>
-      <div className=" inline absolute -mt-20 ml-4">
+      <div className=" inline absolute bg-white-100 rounded-full -mt-10 ml-3">
         <label htmlFor="icon-button-file">
           <Input
             accept="image/*"

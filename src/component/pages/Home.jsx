@@ -3,15 +3,15 @@ import { useHistory } from 'react-router-dom';
 import Feeds from "../feeds/Feeds"
 import Left from "../left-side/Left"
 import Right from "../right-side/Right"
- 
+import { decryptData } from "../../Middleware/crypto";
 
 const Home = () => {
     let history = useHistory();
 
  //  checking the user loged in  or not 
     let checkUserData = localStorage.getItem("userChecking")
-    checkUserData = checkUserData?JSON.parse(checkUserData):null
-    if(!checkUserData){
+   let decrypedUserDetails = decryptData(checkUserData)
+    if(!decrypedUserDetails){
         history.push("/signin")
         return true
     } 
