@@ -22,9 +22,6 @@ const Profile = () => {
                 <RightSide flex="flex-1"  />
                 </div>
             )
-        
-       
- 
   
 }
 

@@ -6,22 +6,20 @@
       backgroundColor:green;
       color:white
     }
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      },
-      
-      .no-scrollbar {
-        -ms-overflow-style: none;   
-        scrollbar-width: none;   
+    .scrollbar {
+      scrollbar-color: red white;
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+          width: 5px;
       }
-      ,
-      ::-webkit-scrollbar {
-        width: 0;   
-        background: transparent;   
-    },
-  
-    ::-webkit-scrollbar-thumb {
-        background: #FF0000;
-    }
+      &::-webkit-scrollbar-track {
+          background-color: white;
+      }
+      &::-webkit-scrollbar-thumb {
+          background-color: red;
+          border-radius: 5px;
+      }
+  }
+   
 
   }
