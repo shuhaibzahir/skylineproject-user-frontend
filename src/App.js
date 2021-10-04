@@ -15,7 +15,11 @@ const App = () => {
  
  
    let data = localStorage.getItem("userChecking")
-    let decryptedUserDetails = decryptData(data)
+   var decryptedUserDetails;
+   if(data) {
+   decryptedUserDetails = decryptData(data)
+   }
+  
 
     const header =()=>{
       if(decryptedUserDetails){

@@ -167,7 +167,7 @@ const updateData=(e)=>{
 // data passing to backend
 // ....................................................
     setProgress(true)
-        axios.post("/userSignup",signUpData,{
+        axios.post("/api/userSignup",signUpData,{
             headers: { 
                 'content-type': 'application/json'
              },
@@ -246,7 +246,7 @@ const signIn=()=>{
      
     if(signinEmail===false){
         setProgress(true)
-        axios.post("/userSignin",signinData,{
+        axios.post("/api/userSignin",signinData,{
             headers:{
                 'content-type': 'application/json'
             }
@@ -318,7 +318,7 @@ if(checkUserData){
                        <div className={`w-1/2 rounded-full ${progress?"":"hidden"}`}>
                         <LinearProgress />
                         </div>
-                      <div className="space-x-4  w-full px-8 ">
+                      <div className="space-x-4  ">
                        
                         <TextField id="outlined-username"  name="username" value={signUpData.username} className={classes.textColor} error={usernameValidate} onChange={(e)=>{checkUserName(e)}} label={`${usernameValidate?"Invalid UserName":"Username"}`} variant="outlined" />
                          

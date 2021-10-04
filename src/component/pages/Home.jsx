@@ -10,7 +10,9 @@ const Home = () => {
 
  //  checking the user loged in  or not 
     let checkUserData = localStorage.getItem("userChecking")
-   let decrypedUserDetails = decryptData(checkUserData)
+    let decrypedUserDetails ;
+    if(checkUserData) decrypedUserDetails = decryptData(checkUserData)
+  
     if(!decrypedUserDetails){
         history.push("/signin")
         return true

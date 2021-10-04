@@ -64,7 +64,7 @@ const ContracterForm = ({modalClose}) => {
     setFieldErro('')
     // api sending 
     setProgress(true)
-    axios.put("/applay/constructor/",constructorDetails,{
+    axios.put("/api/constructor/apply/",constructorDetails,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }
@@ -79,9 +79,8 @@ const ContracterForm = ({modalClose}) => {
       modalClose()
     }).catch((error)=>{
       console.log(error)
-      // setFieldErro(error.data.apiError)
-      setProgress(false)
-      console.log(error)
+      setFieldErro(error.data.apiError)
+       console.log(error)
       
     })
 
