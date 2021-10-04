@@ -8,7 +8,7 @@ const Feeds = ({flex}) => {
     let decrypedUserDetails = decryptData(checkUserData)
     
     return (
-        <div  className={`${flex} min-h-withoutHeader w-full`}>
+        <div  className={`${flex} min-h-withoutHeader  w-full`}>
             
            <div className="p-6 ml-6 w-full  ">
           

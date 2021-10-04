@@ -4,15 +4,57 @@ import SendIcon from '@mui/icons-material/Send';
 import { AiOutlineTags } from "react-icons/ai";
 import Button from '@mui/material/Button';
 import { Dialog, Transition } from "@headlessui/react";
+import React from 'react'
+import ReactPlayer from 'react-player/lazy'
+
+// Lazy load the YouTube player
 
 const AddPost = () => {
-  const fileInputPhoto = useRef(null);
+  const fileInputPhoto = useRef();
   const videoInputRef = useRef();
+  // video file useState
+  const [videoFile,setVideofile]=useState(false)
+  const [blobedUrlVideo,setBlobedUrlVideo] =useState()
+ 
+
+  //phot file useState 
+  const [photoFile,setPhotoFile]=useState(false)
+  const [blobePhotURL,setBlobPhotoURL] =useState()
+
+ 
+
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null);
   const [tag, setTags] = useState();
   const [privacy, setPrivacy] = useState();
   const addingTags = () => {};
+
+  // selecting vide
+const vidoFileOnchange =(e)=>{
+  setVideofile(true)
+  setPhotoFile(false)
+   
+ let selectedVideo = e.target.files[0]
+ 
+ let blobedURL = URL.createObjectURL(selectedVideo)
+ setBlobedUrlVideo(blobedURL)
+}
+
+// selecting Photo
+
+const photoFileOnchange =(e)=>{
+  setVideofile(false)
+  setPhotoFile(true)
+  let selectedPhoto = e.target.files[0]
+ 
+  let blobedURL = URL.createObjectURL(selectedPhoto)
+  setBlobPhotoURL(blobedURL)
+}
+
+
+
+
+
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-6 mb-5">
       <div className="p-6">
@@ -48,6 +90,11 @@ const AddPost = () => {
             />
             <hr />
           </div>
+          <div className="flex items-center justify-center p-2  ">
+          {photoFile&& <img className="h-96 w-atuo" src={blobePhotURL} alt="postImages"/>}
+          {videoFile&&<ReactPlayer url={blobedUrlVideo}  controls/>}
+
+          </div>
           <div className="flex items-center justify-between mt-4">
               {/* options */}
           <div>
@@ -61,8 +108,9 @@ const AddPost = () => {
               >
                 <BiImageAdd style={{ color: "#FF005C" }} size="1.7rem" />
                 <p>photos</p>
-                <input type="file" ref={fileInputPhoto} hidden />
+                <input type="file" ref={fileInputPhoto} onChange={(e)=>{photoFileOnchange(e)}}  hidden />
               </div>
+
               {/* video upload  */}
               <div
                 className="cursor-pointer flex space-x-3"
@@ -72,8 +120,9 @@ const AddPost = () => {
               >
                 <BiVideoPlus style={{ color: "#4CAF50" }} size="1.7rem" />
                 <p>Video </p>
-                <input type="file" hidden ref={videoInputRef} />
+                <input type="file" hidden ref={videoInputRef} onChange={(e)=>{vidoFileOnchange(e)}} accept="video/*" />
               </div>
+
               {/* tag setting */}
               <div
                 className="cursor-pointer flex space-x-3"

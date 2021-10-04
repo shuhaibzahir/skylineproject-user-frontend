@@ -7,7 +7,7 @@ import {IoMdNotificationsOutline} from "react-icons/io"
  
 const Center = ({ flex }) => {
   return (
-    <div className={`${flex} items-center w-full shadow-md rounded-full`}>
+    <div className={`${flex} items-center  w-full shadow-md rounded-full`}>
       <div className="flex rounded-2xl h-16  text-dark-gray bg-dark-white  justify-around items-center w-full">
         <Link to="/">
         <div className="hover:bg-pink duration-300  ease-linear bg-white cursor-pointer hover:text-white p-2 rounded-2xl     ">

@@ -18,9 +18,9 @@ const Right = ({flex}) => {
 
        const checkingApplied = ()=>{
          
-          if(decryptedUser?.user?.applied=="yes"&&decryptedUser?.user?.constructorPower){
+          if(decryptedUser?.user?.applied==="yes"&&decryptedUser?.user?.constructorPower){
              return true
-          }else if(decryptedUser.user.applied=="pending"){
+          }else if(decryptedUser.user.applied==="pending"){
              return(
                <button disabled  type="button" className="flex group bg-dark-gray h-16 duration-300 w-full justify-center space-x-4 items-center  p-3 rounded-2xl ">
                
