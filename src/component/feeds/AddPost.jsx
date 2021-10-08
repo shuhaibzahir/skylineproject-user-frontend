@@ -4,59 +4,144 @@ import SendIcon from '@mui/icons-material/Send';
 import { AiOutlineTags } from "react-icons/ai";
 import Button from '@mui/material/Button';
 import { Dialog, Transition } from "@headlessui/react";
+import { decryptData,encryptData } from "../../Middleware/crypto";
+import LinearProgress from '@mui/material/LinearProgress';
+import { ToastContainer, toast } from 'react-toastify';
 import React from 'react'
 import ReactPlayer from 'react-player/lazy'
-
+import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
 // Lazy load the YouTube player
 
 const AddPost = () => {
-  const fileInputPhoto = useRef();
-  const videoInputRef = useRef();
+
+
+  let checkUserData = localStorage.getItem("userChecking");
+  let decryptedUserDetails = decryptData(checkUserData);
+  const [progress,setProgress] = useState(false)
+  const fileInputPhoto = useRef(null);
+  const videoInputRef = useRef(null);
+  const titleRef= useRef(null)
+  const contentRef = useRef(null)
+  const [cancelButton, setCancelButton] = useState(false)
+  const [blobUr,setBlobUrl] =useState()
   // video file useState
   const [videoFile,setVideofile]=useState(false)
-  const [blobedUrlVideo,setBlobedUrlVideo] =useState()
- 
 
-  //phot file useState 
+   //phot file useState 
   const [photoFile,setPhotoFile]=useState(false)
-  const [blobePhotURL,setBlobPhotoURL] =useState()
+  const [open, setOpen] = useState(false);
 
+
+  const cancelButtonRef = useRef(null);
+  const [tag, setTags] = useState('');
+  const [privacy, setPrivacy] = useState('public');
  
 
-  const [open, setOpen] = useState(false);
-  const cancelButtonRef = useRef(null);
-  const [tag, setTags] = useState();
-  const [privacy, setPrivacy] = useState();
-  const addingTags = () => {};
+ 
+ 
 
   // selecting vide
 const vidoFileOnchange =(e)=>{
+  if(e.target.files[0]){
   setVideofile(true)
   setPhotoFile(false)
-   
+  setCancelButton(true)
  let selectedVideo = e.target.files[0]
  
  let blobedURL = URL.createObjectURL(selectedVideo)
- setBlobedUrlVideo(blobedURL)
+ setBlobUrl(blobedURL)
+  }
 }
 
 // selecting Photo
 
 const photoFileOnchange =(e)=>{
+  if(e.target.files[0]){
   setVideofile(false)
   setPhotoFile(true)
+  setCancelButton(true)
   let selectedPhoto = e.target.files[0]
  
   let blobedURL = URL.createObjectURL(selectedPhoto)
-  setBlobPhotoURL(blobedURL)
+  setBlobUrl(blobedURL)
+  }
+  
 }
 
+// clearing all data to be uploaded
+const clearAllDataToPost =()=>{
+  
+  setCancelButton(false)
+  setVideofile(false)
+  setPhotoFile(false)
+  setBlobUrl('')
+}
 
+// cellecting the data to the server 
 
+const sendingTheData = ()=>{
+  let mainTitle = titleRef.current.value
+  let mainContent = contentRef.current.value
+  let tags = tag;
+  let titleExist = mainTitle.replace(" ",'')
+  let contentExist =  mainContent.replace(" ",'')
+   if(titleExist==false||contentExist==false){
+    alert("please Enter some data")
+   return true
+   }
+
+// if data exist then it will proceed the below setups
+  let postMedia ;
+  if(photoFile){
+    postMedia = fileInputPhoto.current.files[0]
+  }else if(videoFile){
+    postMedia = videoInputRef.current.files[0]
+  }
+
+  
+ 
+ 
+  console.log(mainTitle,mainContent,tags,privacy,postMedia)
+  setProgress(true)
+  const body = new FormData()
+  body.append("title",mainTitle)
+  body.append("content",mainContent)
+  body.append("tags",tags)
+  body.append("privacy",privacy)
+  body.append("media",postMedia)
+   
+  axios.post("/api/post/uploading", body,{
+    headers:{
+      'Authorization':`Bearer ${decryptedUserDetails.token}`
+     }
+  }).then((response)=>{
+    toast("Post Succesfully updated !")
+  titleRef.current.value=''
+   contentRef.current.value='' 
+   setCancelButton(false)
+   setVideofile(false)
+   setPhotoFile(false)
+   setBlobUrl('')
+    setProgress(false)
+  }).catch((err)=>{
+    toast("Try Again Later !")
+    titleRef.current.value=''
+     contentRef.current.value='' 
+     setCancelButton(false)
+     setVideofile(false)
+     setPhotoFile(false)
+     setBlobUrl('')
+      setProgress(false)
+    console.log(err)
+  })
+ 
+}
 
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-6 mb-5">
+      <ToastContainer/>
       <div className="p-6">
         {/* add post main phot and name div */}
         <div className="flex space-x-3 items-center">
@@ -81,18 +166,20 @@ const photoFileOnchange =(e)=>{
               type="text"
               placeholder="title"
               className="h-4 p-4 m-2 outline-none"
+              ref={titleRef}
             />
             <textarea
               type="text"
               placeholder="Content"
               className=" p-4 m-2 outline-none resize-none"
               rows=""
+              ref={contentRef}
             />
             <hr />
           </div>
           <div className="flex items-center justify-center p-2  ">
-          {photoFile&& <img className="h-96 w-atuo" src={blobePhotURL} alt="postImages"/>}
-          {videoFile&&<ReactPlayer url={blobedUrlVideo}  controls/>}
+          {photoFile&& <img className="h-96 w-atuo" src={blobUr} alt="postImages"/>}
+          {videoFile&&<ReactPlayer url={blobUr}  controls/>}
 
           </div>
           <div className="flex items-center justify-between mt-4">
@@ -108,7 +195,7 @@ const photoFileOnchange =(e)=>{
               >
                 <BiImageAdd style={{ color: "#FF005C" }} size="1.7rem" />
                 <p>photos</p>
-                <input type="file" ref={fileInputPhoto} onChange={(e)=>{photoFileOnchange(e)}}  hidden />
+                <input type="file" ref={fileInputPhoto} onChange={(e)=>{photoFileOnchange(e)}}  accept="image/*"  hidden />
               </div>
 
               {/* video upload  */}
@@ -120,7 +207,7 @@ const photoFileOnchange =(e)=>{
               >
                 <BiVideoPlus style={{ color: "#4CAF50" }} size="1.7rem" />
                 <p>Video </p>
-                <input type="file" hidden ref={videoInputRef} onChange={(e)=>{vidoFileOnchange(e)}} accept="video/*" />
+                <input type="file"  hidden ref={videoInputRef} onChange={(e)=>{vidoFileOnchange(e)}} accept="video/*" />
               </div>
 
               {/* tag setting */}
@@ -135,11 +222,22 @@ const photoFileOnchange =(e)=>{
               </div>
             </div>
           </div>
-          <Button variant="contained" style={{backgroundColor:"#FF005C"}} endIcon={<SendIcon />}>
+          {/* send and cancel button */}
+          <div className={`space-x-4 ${progress&&"hidden"}`}>
+            {cancelButton&&<Button variant="contained" color="secondary"  onClick={()=>{clearAllDataToPost()}}  endIcon={<CloseIcon />}>
+            Cancel
+          </Button>}
+         
+          <Button variant="contained" style={{backgroundColor:"#FF005C"}} onClick={()=>{sendingTheData()}} endIcon={<SendIcon />}>
             Send
          </Button>
           </div>
+          </div>
+        
         </div>
+            <div className={`mt-5 px-5 ${progress?'':'hidden'}`}>
+            <LinearProgress color="success"/>
+            </div>
       </div>
 
       {/* modal */}
@@ -209,16 +307,15 @@ const photoFileOnchange =(e)=>{
                     type="button"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
-                      addingTags();
                       setOpen(false);
-                    }}
+                     }}
                   >
                     Add
                   </button>
                   <button
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {setTags('');setOpen(false)}}
                     ref={cancelButtonRef}
                   >
                     Cancel

@@ -74,10 +74,13 @@ const ProfileDiv = () => {
     setButton(false);
     setProgress(true)
     let newform = new FormData()
+ 
     newform.append("file",keepUpdateImage)
+    console.log(newform)
      axios.put("/api/profile-pic/upload",newform,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
+      
       }
      }).then((response)=>{
       
