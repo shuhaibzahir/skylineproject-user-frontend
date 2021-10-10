@@ -25,7 +25,7 @@ const ProfileDiv = () => {
   let decryptedUserDetails = decryptData(checkUserData);
  
  
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState();
   const [keepUpdateImage ,setKeepUpdate] = useState('')
   const [editProfileButtonOrProfileUpdate, setButton] = useState(false);
   const [progress,setProgress] =useState(false)
@@ -43,7 +43,8 @@ const ProfileDiv = () => {
      
       let encryptedData = encryptData(newData)
       localStorage.setItem("userChecking",encryptedData)
-      setImage(response.data.user.photo)
+      let profilePhoto= response.data.user.photo || ''
+      setImage(profilePhoto)
      
     }).catch((err)=>{
       console.log(err)
