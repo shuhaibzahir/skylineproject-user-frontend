@@ -17,16 +17,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 import AllComments from "../AllComments/AllComments"
 
-const Post = ({ postData, deletePost, editPost }) => {
- 
-  const [singlePost, setPostData] = useState(postData);
+const Post = ({ postData  }) => {
   // take the user details
 
   let checkUserData = localStorage.getItem("userChecking");
   let decrypedUserDetails = decryptData(checkUserData);
 
 
- 
+ const [singlePost,setPostData] =useState(postData)
 
 
   // add comment
@@ -52,31 +50,7 @@ const openAllComment =()=>{
 }
 
 
-  // chek the user is there for some post option
-  const checkUserIdforMenuOption = (data) => {
-    if (data.user == decrypedUserDetails.user._id) {
-      return [
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            deletePost(data._id);
-          }}
-        >
-          Delete
-        </MenuItem>,
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            editPost(data);
-          }}
-        >
-          Edit
-        </MenuItem>,
-      ];
-    } else {
-      return <MenuItem onClick={handleClose}>Report</MenuItem>;
-    }
-  };
+   
 
  // the menu options
   const [anchorEl, setAnchorEl] = useState(null);
@@ -311,28 +285,7 @@ const openAllComment =()=>{
             </div>
           </div>
           </Link>
-          <MoreVertIcon
-            onClick={handleClick}
-            ria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            className="cursor-pointer"
-          />
-          {/* this is for mennu */}
-          <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-          >
-            {checkUserIdforMenuOption(singlePost)}
-          </Menu>
+         
         </div>
         {/* content part */}
         <div className="p-4  mb-4">

@@ -8,7 +8,9 @@ import UserContext from "./Contexts/userDetails"
 import Logout from "./component/LoginAndSignup/Singout"
 import Profile from "./component/pages/Profile"
 import { decryptData } from './Middleware/crypto'
-
+import UserProfile from "./component/pages/UsersProfile"
+import Followers from "./component/pages/Followers"
+import Following from "./component/pages/Following"
 const App = () => {
  const [chatDetails, changeChattingDetails]=useState(null);
  const [userDataFromDatabase,setUserDataFromServer] = useState(null)
@@ -45,6 +47,9 @@ const App = () => {
              <Route path="/signin" exact component={Singin} />
              <Route path ="/profile/" component={Profile} />
              <Route path ="/logout" component={Logout} />
+             <Route path ="/user/profile/:userId"  component={UserProfile} />
+             <Route path ="/followers"  component={Followers} />
+             <Route path ="/following"  component={Following} />
            </Switch>
             </ChattindContext.Provider>
            </UserContext.Provider>

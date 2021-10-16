@@ -20,7 +20,8 @@ const Input = styled("input")({
   display: "none",
 });
 
-const ProfileDiv = () => {
+const ProfileDiv = ({userPost}) => {
+   
   let checkUserData = localStorage.getItem("userChecking");
   let decryptedUserDetails = decryptData(checkUserData);
  
@@ -28,6 +29,8 @@ const ProfileDiv = () => {
   const [image, setImage] = useState();
   const [keepUpdateImage ,setKeepUpdate] = useState('')
   const [editProfileButtonOrProfileUpdate, setButton] = useState(false);
+ const [followers,setFollowers] = useState([])
+ const [ following, setFollowing] = useState([])
   const [progress,setProgress] =useState(false)
   useEffect(()=>{
     axios.get("/api/user/info",{
@@ -35,15 +38,17 @@ const ProfileDiv = () => {
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }
     }).then((response)=>{
+      console.log(response, "----------------------")
       let checkUserData = localStorage.getItem("userChecking");
       let decryptedUserDetails = decryptData(checkUserData);
-      const newUserData = {...response.data.user}
-       
+      const newUserData = {...response.data.userData}
+    
       let newData = {user:newUserData,...decryptedUserDetails}
      
       let encryptedData = encryptData(newData)
       localStorage.setItem("userChecking",encryptedData)
       let profilePhoto= response.data.user.photo || ''
+      
       setImage(profilePhoto)
      
     }).catch((err)=>{
@@ -105,13 +110,26 @@ const ProfileDiv = () => {
      })
   }
 
+  useEffect(()=>{
+    axios.get("/api/user/network/data",{
+      headers:{
+        'Authorization':`Bearer ${decryptedUserDetails.token}`
+       }
+    }).then((response)=>{
+      let followers = response.data.result[0].followers ?response.data.result[0].followers :[]
+      let folowing = response.data.result[0].following ?response.data.result[0].following: []
+      setFollowers(followers)
+     setFollowing(folowing)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
+
+ 
 
 
 
-
-
-
-
+ 
 
 
 
@@ -189,6 +207,20 @@ const ProfileDiv = () => {
             <AddAPhotoIcon />
           </IconButton>
         </label>
+      </div>
+      <div className="shadow bg-pink text-white flex text-center p-3 rounded-3xl mt-3 items-center justify-around">
+         <div>
+            <p>Followers</p>
+            <p>{ followers.length}</p>
+         </div>
+         <div>
+            <p>Following</p>
+            <p>{following.length}</p>
+         </div>
+         <div>
+            <p>Posts</p>
+            <p>{userPost.length}</p>
+         </div>
       </div>
      <div className={`w-full mt-3 ${!progress&&"hidden"}`}>
      <LinearProgress/>

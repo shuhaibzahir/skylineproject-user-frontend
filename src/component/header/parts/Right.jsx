@@ -10,14 +10,17 @@ const Right = ({flex}) => {
   const [openOption, setOpen]=useState(false)
   let checkUserData = localStorage.getItem("userChecking")
   const decrypted = decryptData(checkUserData)
-
+  console.log(decrypted.user.photo)
     return (
         <div className={`${flex}   items-center rounded-full    w-full `}>
 
         <div className="flex rounded-2xl h-16   bg-dark-white  ml-4 shadow-md justify-around items-center w-full">
      
        <div className={`${openOption?"hidden":"flex"} duration-300  items-center justify-center space-x-4`}>
-                <img src="https://yt3.ggpht.com/ytc/AKedOLTIbYSBxZvTQV8isj_TFE3KkXyyLBTxfdAypcfiqQ=s900-c-k-c0x00ffffff-no-rj" className="rounded-full h-8 " alt="" />
+                <img src={decrypted.user.photo}  onError={(e) => {
+            e.target.onerror = null;
+            e.target.src ="https://global-uploads.webflow.com/5e4627609401e01182af1cce/5eb13bfdb4659efea4f8dace_profile-dummy.png";
+          }} className="rounded-full h-8 w-8" alt="" />
                 <h3>{decrypted.user?.username || ''}</h3>
         </div>
            <div  className={`${openOption?"hidden":""} bg-white hover:bg-pink hover:text-white duration-200 p-2 cursor-pointer rounded-full text-pink`} onClick={()=>setOpen(!openOption)}>

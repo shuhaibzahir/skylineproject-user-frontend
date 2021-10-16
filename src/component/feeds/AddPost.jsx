@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
 // Lazy load the YouTube player
 
-const AddPost = () => {
+const AddPost = ({setPosts}) => {
 
 
   let checkUserData = localStorage.getItem("userChecking");
@@ -99,10 +99,7 @@ const sendingTheData = ()=>{
     postMedia = videoInputRef.current.files[0]
   }
 
-  
  
- 
-  console.log(mainTitle,mainContent,tags,privacy,postMedia)
   setProgress(true)
   const body = new FormData()
   body.append("title",mainTitle)
@@ -116,7 +113,16 @@ const sendingTheData = ()=>{
       'Authorization':`Bearer ${decryptedUserDetails.token}`
      }
   }).then((response)=>{
-    toast("Post Succesfully updated !")
+    if(privacy=="public"){
+        setPosts((prev)=>{
+          let newArray =  [response.data.post,...prev]
+          console.log(newArray)
+        return newArray
+      })
+    }
+  
+
+  toast("Post Succesfully updated !")
   titleRef.current.value=''
    contentRef.current.value='' 
    setCancelButton(false)
@@ -124,6 +130,7 @@ const sendingTheData = ()=>{
    setPhotoFile(false)
    setBlobUrl('')
     setProgress(false)
+
   }).catch((err)=>{
     toast("Try Again Later !")
     titleRef.current.value=''
@@ -146,12 +153,12 @@ const sendingTheData = ()=>{
         {/* add post main phot and name div */}
         <div className="flex space-x-3 items-center">
           <img
-            src="https://image.shutterstock.com/image-photo/sky-cloulds-blackgroundselection-focus-only-260nw-1202241937.jpg"
+            src={decryptedUserDetails.user.photo}
             className="h-9 w-9 rounded-full"
             alt=""
           />
           <div>
-            <h1>Jones Augestine</h1>
+            <h1>{decryptedUserDetails.user.username}</h1>
             <select value={privacy} title="asa" onChange={(e)=>{setPrivacy(e.target.value)}}>
               <option value="public" selected>
                 Public

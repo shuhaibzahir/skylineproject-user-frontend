@@ -1,27 +1,29 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState} from 'react'
 import Chat from '../chatbox/Chat'
-import {Link} from "react-router-dom"
-import RecomendedPoepleDiv from "./RecomendedPoeples"
+ 
 import ChatDetails from '../../Contexts/ChatDetails'
 import {IoMdPhotos} from "react-icons/io"
 import {FaCalendar} from "react-icons/fa"
 import {RiUserReceived2Fill,RiUserShared2Fill} from "react-icons/ri"
-
+import {Link } from "react-router-dom"
+import {decryptData} from "../../Middleware/crypto"
 const Right = ({flex}) => {
        const {chatDetails, setChatting}=useContext(ChatDetails)
-     return (
+       let checkUserData = localStorage.getItem("userChecking")
+       let decryptedUser = decryptData(checkUserData)
+        
+      return (
         <div className={`${flex} `}>
         <div className={`min-h-withoutHeader   p-6 max-h-48 w-1/4 fixed overflow-auto `}>
-             <div className="">
-             <h1 className="uppercase text-xl font-semibold text-dark-gray ">Recomended Poepole</h1>
-            <RecomendedPoepleDiv/>
-             </div>
-
+            
 
              <div className="px-6 py-4 space-y-4 mt-3 h-48   ">
              <h1 className="uppercase text-xl font-semibold text-dark-gray ">Options</h1>
                 
                 {/* option div */}
+                <div className="space-y-4 px-6 py-4">
+
+
                 <div className=" px-6  ">
 
                <Link to="/profile" className="m-2" >
@@ -46,13 +48,15 @@ const Right = ({flex}) => {
             </Link>
 
               </div>
-                
+             </div>
+               
 
              </div>
             <div className="px-4">
            {chatDetails&&<Chat closeChatBox={setChatting} chattingData={chatDetails} />}
             </div>
        </div>
+ 
     </div>
     )
 }
