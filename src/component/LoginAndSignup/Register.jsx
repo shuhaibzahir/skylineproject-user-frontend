@@ -260,7 +260,7 @@ const Register = () => {
 
   // google authentication
   const onSuccessWithGoogle = (response) => {
-      console.log(response.profileObj)
+      
         axios.post("/api/signin/with/google",response.profileObj).then((result)=>{
             console.log(result)
             const encrypted = encryptData(result.data);

@@ -1,7 +1,40 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Profile  from './Profile'
 import OnlinePoeple from './onlinePoeple'
+import axios from "axios"
+import { decryptData } from '../../Middleware/crypto.js'
 const Left = ({flex}) => {
+
+ 
+    const [conversation,setConversation] =useState([])
+
+   
+    let checkUserData = localStorage.getItem("userChecking");
+    let decryptedUserDetails = decryptData(checkUserData);
+
+
+    useEffect(()=>{
+      let getConversation = async()=>{
+         try{
+          let res = await axios.get("/api/get/conversation",{
+              headers:{
+                  'Authorization':`Bearer ${decryptedUserDetails.token}`
+            }
+          }) 
+          console.log(res.data.result)
+          setConversation(res.data.result)
+
+         }catch(err){
+          console.log(err)
+         }
+      }
+      getConversation()
+    },[])
+
+
+
+ 
+
     return (
         <div className={`${flex} `}>
             <div className={`min-h-withoutHeader bg-white-100  p-6 max-h-48 w-1/4 fixed overflow-auto `}>
@@ -11,7 +44,8 @@ const Left = ({flex}) => {
                 <Profile />
                 <h1 className="uppercase text-xl mt-6 font-semibold text-dark-gray ">Networks</h1>
                 {/* online persons form follwers */}
-               <OnlinePoeple />
+              <OnlinePoeple conversation={conversation}  /> 
+             
              </div>
         </div>
         </div>

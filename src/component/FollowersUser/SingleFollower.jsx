@@ -17,6 +17,7 @@ const [followed,setFollowed] = useState(null)
 
 
  useEffect(()=>{
+  
     let userExisting = Following.some((test)=>test._id===userData._id)
     if(userExisting){
         setFollowed(true)

@@ -122,7 +122,7 @@ const Feeds = ({ flex }) => {
 
       
        
-        {posts.map((p) => (
+        {posts.length>0&&posts.map((p) => (
           <Posts postData={p} deletePost={deletePost} editPost={editPost} key={p._id} />
         ))}
       </div>

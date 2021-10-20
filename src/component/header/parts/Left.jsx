@@ -15,8 +15,7 @@ const Left = ({flex}) => {
 
     const searchingInput=(e)=>{
         let value = e.target.value
-        let check = validator.isLength(value,{min:3})
-        console.log(check)
+ 
         let valueExist = value.replaceAll(" ","")
          if(valueExist.length ===0){
             setResultBox(false)

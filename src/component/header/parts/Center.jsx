@@ -19,11 +19,12 @@ const Center = ({ flex }) => {
           <HiOutlineUserGroup size="2rem" />
         </div>
         </Link>
+        <Link to="/message"> 
         <div className="group hover:bg-pink duration-300 relative ease-linear bg-white cursor-pointer hover:text-white p-2 rounded-2xl     ">
         <span className="p-0.5 absolute group-hover:bg-dark-gray duration-300  text-sm h-6 w-6 text-center text-white -top-1 -right-1 rounded-full bg-pink">{"3"}</span> 
           <AiOutlineMessage size="2rem" />
         </div>
-        
+        </Link>
         <div className="group hover:bg-pink duration-300 relative ease-linear bg-white cursor-pointer hover:text-white p-2 rounded-2xl     ">
             <span className="group-hover:bg-dark-gray p-0.5 duration-300  absolute text-sm h-6 w-6 text-center text-white -top-1 -right-1 rounded-full bg-pink">{"3"}</span> 
           <IoMdNotificationsOutline size="2rem" />

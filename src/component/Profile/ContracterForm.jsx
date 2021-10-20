@@ -72,14 +72,14 @@ const ContracterForm = ({modalClose}) => {
       setProgress(false)
       let storageData = localStorage.getItem("userChecking")
        let decryptingData  = decryptData(storageData) 
-       
+       console.log(decryptingData,"this is from local")
         let newData = {...decryptingData,user:response.data.user}
         let encryptingNewData = encryptData(newData)
         localStorage.setItem("userChecking",encryptingNewData)
       modalClose()
     }).catch((error)=>{
-      console.log(error)
-      setFieldErro(error.data.apiError)
+       
+      setFieldErro(error?.data.apiError)
        console.log(error)
       
     })

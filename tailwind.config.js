@@ -53,6 +53,10 @@ module.exports = {
 
       minHeight: {
         withoutHeader: "calc(100vh - 6rem)",
+        chatHeight: "calc(100vh - 8rem)",
+      },
+      maxHeight: {
+          chatHeight: "calc(100vh -20rem)",
       },
       height: {
         logoh: "40px",

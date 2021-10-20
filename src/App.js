@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import {BrowserRouter as Router , Route, Switch} from "react-router-dom"
 import Header  from './component/header/Header'
 import Home from './component/pages/Home'
@@ -11,7 +11,10 @@ import { decryptData } from './Middleware/crypto'
 import UserProfile from "./component/pages/UsersProfile"
 import Followers from "./component/pages/Followers"
 import Following from "./component/pages/Following"
+import Chat from "./component/pages/Chat"
+ 
 const App = () => {
+
  const [chatDetails, changeChattingDetails]=useState(null);
  const [userDataFromDatabase,setUserDataFromServer] = useState(null)
  
@@ -35,7 +38,8 @@ const App = () => {
    return (
         <>
           <Router> 
-       <UserContext.Provider value={{userDataFromDatabase, setUserDataFromServer}}>    
+       <UserContext.Provider value={{userDataFromDatabase, setUserDataFromServer}}>  
+     
         <ChattindContext.Provider value={{chatDetails, changeChattingDetails}}>
          
 
@@ -50,8 +54,10 @@ const App = () => {
              <Route path ="/user/profile/:userId"  component={UserProfile} />
              <Route path ="/followers"  component={Followers} />
              <Route path ="/following"  component={Following} />
+             <Route path="/message" component={Chat} />
            </Switch>
             </ChattindContext.Provider>
+         
            </UserContext.Provider>
            </Router>
         </>

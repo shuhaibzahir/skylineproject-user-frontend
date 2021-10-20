@@ -38,10 +38,10 @@ const ProfileDiv = ({userPost}) => {
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }
     }).then((response)=>{
-      console.log(response, "----------------------")
+       
       let checkUserData = localStorage.getItem("userChecking");
       let decryptedUserDetails = decryptData(checkUserData);
-      const newUserData = {...response.data.userData}
+      const newUserData = {...response.data.user}
     
       let newData = {user:newUserData,...decryptedUserDetails}
      
@@ -116,8 +116,8 @@ const ProfileDiv = ({userPost}) => {
         'Authorization':`Bearer ${decryptedUserDetails.token}`
        }
     }).then((response)=>{
-      let followers = response.data.result[0].followers ?response.data.result[0].followers :[]
-      let folowing = response.data.result[0].following ?response.data.result[0].following: []
+      let followers = response.data.result[0]?.followers ?response.data.result[0].followers :[]
+      let folowing = response.data.result[0]?.following ?response.data.result[0].following: []
       setFollowers(followers)
      setFollowing(folowing)
     }).catch((err)=>{

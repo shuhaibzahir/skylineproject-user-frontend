@@ -301,12 +301,12 @@ const openAllComment =()=>{
           <Link to={`/user/profile/${postData.user}`} > 
           <div className=" space-x-4 flex items-center">
             <img
-              src="https://pbs.twimg.com/profile_images/1390886031851855880/wktTnTP3_400x400.jpg"
+              src={postData.userDetails?.photo||"http://www.londondentalsmiles.co.uk/wp-content/uploads/2017/06/person-dummy.jpg"}
               className="w-12 h-12  rounded-full"
               alt=""
             />
             <div className="text-sm text-dark-gray">
-              <p>shuhaib</p>
+              <p>{postData?.userDetails?.username}</p>
               {checkTheDatePosted(singlePost.date)}
             </div>
           </div>
@@ -364,7 +364,7 @@ const openAllComment =()=>{
         </div>
         {/* comments */}
         <div className=" max-h-40 overflow-auto" ref={commentAdded}>
-        {comments.map((i)=> <div className=" p-2 ">
+        {comments.map((i,index)=> <div className=" p-2 " key={index}>
         <div className="flex  bg-white-100 items-center p-5 rounded-2xl rounded-bl-none justify-between">
         <div className="flex space-x-2">
           <img

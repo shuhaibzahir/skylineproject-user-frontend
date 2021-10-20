@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext,useEffect,useRef} from 'react'
 import Chat from '../chatbox/Chat'
 import {Link} from "react-router-dom"
 import RecomendedPoepleDiv from "./RecomendedPoeples"
@@ -6,9 +6,20 @@ import ChatDetails from '../../Contexts/ChatDetails'
 import {IoMdPhotos} from "react-icons/io"
 import {FaCalendar} from "react-icons/fa"
 import {RiUserReceived2Fill,RiUserShared2Fill} from "react-icons/ri"
-
+ 
+import { decryptData } from '../../Middleware/crypto.js'
 const Right = ({flex}) => {
-       const {chatDetails, setChatting}=useContext(ChatDetails)
+
+
+  let checkUserData = localStorage.getItem("userChecking");
+  let currentUser = decryptData(checkUserData);
+
+     
+
+      
+
+      
+       const {chatDetails, changeChattingDetails}=useContext(ChatDetails)
      return (
         <div className={`${flex} `}>
         <div className={`min-h-withoutHeader   p-6 max-h-48 w-1/4 fixed overflow-auto `}>
@@ -46,12 +57,10 @@ const Right = ({flex}) => {
             </Link>
 
               </div>
-                
-
-             </div>
-            <div className="px-4">
-           {chatDetails&&<Chat closeChatBox={setChatting} chattingData={chatDetails} />}
-            </div>
+              </div>
+              {chatDetails&&<div className="px-4 fixed bg-white-100 h-96 bottom-10 rounded-2xl w-1/4 right-10">
+             <Chat closeChatBox={changeChattingDetails}  chattingData={chatDetails} />
+            </div>}
        </div>
     </div>
     )
