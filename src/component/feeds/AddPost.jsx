@@ -108,7 +108,7 @@ const sendingTheData = ()=>{
   body.append("privacy",privacy)
   body.append("media",postMedia)
    
-  axios.post("/api/post/uploading", body,{
+  axios.post("http://localhost:4040http://localhost:4040/api/post/uploading", body,{
     headers:{
       'Authorization':`Bearer ${decryptedUserDetails.token}`
      }

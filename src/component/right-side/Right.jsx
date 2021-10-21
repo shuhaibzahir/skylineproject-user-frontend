@@ -14,12 +14,7 @@ const Right = ({flex}) => {
   let checkUserData = localStorage.getItem("userChecking");
   let currentUser = decryptData(checkUserData);
 
-     
-
-      
-
-      
-       const {chatDetails, changeChattingDetails}=useContext(ChatDetails)
+      const {chatDetails, changeChattingDetails}=useContext(ChatDetails)
      return (
         <div className={`${flex} `}>
         <div className={`min-h-withoutHeader   p-6 max-h-48 w-1/4 fixed overflow-auto `}>

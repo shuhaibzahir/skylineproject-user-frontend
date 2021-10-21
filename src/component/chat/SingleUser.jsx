@@ -11,7 +11,7 @@ const SingleUser = ({ currentUser,conversation,getMessage}) => {
         const friendId = conversation.members.find(m=>m!==currentUserId)
      
         const getUser = async ()=>{
-            const res = await axios.get(`/api/get/user/details/${friendId}`,{
+            const res = await axios.get(`http://localhost:4040/api/get/user/details/${friendId}`,{
                 headers:{
                     'Authorization':`Bearer ${currentUser.token}`
                   

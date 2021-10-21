@@ -26,7 +26,7 @@ const [followed,setFollowed] = useState(null)
 
 const followAuser = (userId)=>{
     setLoading(true)
-    axios.put(`/api/follow/user/${userId}`,{},{
+    axios.put(`http://localhost:4040/api/follow/user/${userId}`,{},{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       
@@ -46,7 +46,7 @@ const followAuser = (userId)=>{
 
 const unFollow =(userId)=>{
   setLoading(true)
-  axios.put(`/api/unfollow/user/${userId}`,{},{
+  axios.put(`http://localhost:4040/api/unfollow/user/${userId}`,{},{
     headers:{
       'Authorization':`Bearer ${decryptedUserDetails.token}`
     

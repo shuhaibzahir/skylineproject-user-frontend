@@ -10,7 +10,7 @@ const Right = ({flex}) => {
   const [openOption, setOpen]=useState(false)
   let checkUserData = localStorage.getItem("userChecking")
   const decrypted = decryptData(checkUserData)
-  console.log(decrypted.user.photo)
+ 
     return (
         <div className={`${flex}   items-center rounded-full    w-full `}>
 

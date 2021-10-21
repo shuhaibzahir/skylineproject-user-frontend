@@ -78,7 +78,7 @@ const openAllComment =()=>{
     // delete Comment
     const deleteComment = (data) => {
 
-      axios.put(`/api/delete/comment/${postData._id}/${data._id}`,{},  {
+      axios.put(`http://localhost:4040/api/delete/comment/${postData._id}/${data._id}`,{},  {
         headers: {
           Authorization: `Bearer ${decrypedUserDetails.token}`,
         },
@@ -169,7 +169,7 @@ const openAllComment =()=>{
   const unlike = () => {
     axios
       .put(
-        `/api/post/dislike/${singlePost._id}`,
+        `http://localhost:4040/api/post/dislike/${singlePost._id}`,
         {},
         {
           headers: {
@@ -196,7 +196,7 @@ const openAllComment =()=>{
   const likePost = () => {
     axios
       .put(
-        `/api/post/like/${singlePost._id}`,
+        `http://localhost:4040/api/post/like/${singlePost._id}`,
         {},
         {
           headers: {
@@ -236,7 +236,7 @@ const openAllComment =()=>{
     if (userComment.replaceAll(" ", "").length > 1) {
       axios
         .put(
-          `/api/post/add/comment/${postData._id}`,
+          `http://localhost:4040/api/post/add/comment/${postData._id}`,
           { comment: userComment },
           {
             headers: {

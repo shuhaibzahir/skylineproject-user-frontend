@@ -14,7 +14,7 @@ const CenterPart = ({ flex }) => {
   const [userData, setUserData] = useState('')
  
   useEffect(()=>{
-     axios.get(`/api/user/profile/${userId}`,{
+     axios.get(`http://localhost:4040/api/user/profile/${userId}`,{
         headers:{
             'Authorization':`Bearer ${decryptedUserDetails.token}`
           

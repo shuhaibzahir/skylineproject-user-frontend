@@ -16,7 +16,7 @@ const Followers = () => {
     let decrypedUserDetails ;
     if(checkUserData) decrypedUserDetails = decryptData(checkUserData)
     useEffect(()=>{
-        axios.get("/api/user/network/data",{
+        axios.get("http://localhost:4040/api/user/network/data",{
              headers:{
                   'Authorization':`Bearer ${decrypedUserDetails.token}`
           }

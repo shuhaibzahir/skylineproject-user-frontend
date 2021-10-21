@@ -12,12 +12,12 @@ const Stories = () => {
     const [ loading,setLoading] = useState(true)
     
     useEffect(()=>{
-        axios.get("/api/user/get/all/stories",{
+        axios.get("http://localhost:4040/api/user/get/all/stories",{
             headers:{
                 Authorization: `Bearer ${decryptedUserDetails.token}`,
             }
         }).then(response=>{ 
-            console.log(response.data)
+             
             let userstory = response.data.userStory
             let userFollowingStory = response.data.userFollowingStory
             setUserStory(userstory)
@@ -36,7 +36,7 @@ const Stories = () => {
         <div className={`flex relative duration-400 ${mouseover?"overflow-x-auto":"overflow-x-hidden"} scroll-touch flex-row items-center justify-start space-x-4 cursor-pointer`} onMouseEnter={()=>{setScroll(!mouseover)}} onMouseLeave={()=>{setScroll(!mouseover)}} >
        <div className="w-20 p-5">
        <div className="flex space-x-3   w-max ">
-           {loading?<CircularProgress />: <> <UserStory existStory={userStory}  setUserStory={setUserStory}/> {followingStory.map(data=><OtherUsersStory data={data} key={data._id} />)}</>}
+           {loading?<CircularProgress />: <> <UserStory existStory={userStory}  setUserStory={setUserStory}/> {followingStory?.map(data=><OtherUsersStory data={data} key={data._id} />)}</>}
             </div>
        </div>
  

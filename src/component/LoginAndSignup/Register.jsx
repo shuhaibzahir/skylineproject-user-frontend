@@ -159,12 +159,13 @@ const Register = () => {
       // ....................................................
       setProgress(true);
       axios
-        .post("/api/userSignup", signUpData, {
+        .post("http://localhost:4040/api/userSignup", signUpData, {
           headers: {
             "content-type": "application/json",
           },
         })
         .then((response) => {
+          console.log(response)
           setProgress(false);
           const encrypted = encryptData(response.data);
           localStorage.setItem("userChecking", encrypted);
@@ -234,13 +235,14 @@ const Register = () => {
     if (signinEmail === false) {
       setProgress(true);
       axios
-        .post("/api/userSignin", signinData, {
+        .post("http://localhost:4040/api/userSignin", signinData, {
           headers: {
             "content-type": "application/json",
           },
         })
         .then((response) => {
-          const encrypted = encryptData(response.data);
+          console.log(response)
+           const encrypted = encryptData(response.data);
           localStorage.setItem("userChecking", encrypted);
           setUserDataFromServer(response.data);
           setProgress(false);
@@ -261,8 +263,8 @@ const Register = () => {
   // google authentication
   const onSuccessWithGoogle = (response) => {
       
-        axios.post("/api/signin/with/google",response.profileObj).then((result)=>{
-            console.log(result)
+        axios.post("http://localhost:4040/api/signin/with/google",response.profileObj).then((result)=>{
+             
             const encrypted = encryptData(result.data);
             localStorage.setItem("userChecking", encrypted);
             setUserDataFromServer(result.data);

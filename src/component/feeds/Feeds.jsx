@@ -23,7 +23,7 @@ const Feeds = ({ flex }) => {
 
   useEffect(() => {
     axios
-      .get("/api/logged/get/all/post", {
+      .get("http://localhost:4040/api/logged/get/all/post", {
         headers: {
           Authorization: `Bearer ${decrypedUserDetails.token}`,
         },
@@ -40,7 +40,7 @@ const Feeds = ({ flex }) => {
   // delete post
   const deletePost = (postId) => {
     axios
-      .delete(`/api/post/delete/${postId}`, {
+      .delete(`http://localhost:4040/api/post/delete/${postId}`, {
         headers: {
           Authorization: `Bearer ${decrypedUserDetails.token}`,
         },
@@ -74,7 +74,7 @@ const Feeds = ({ flex }) => {
   // updatePost 
   
   const updatePost =(data)=>{
-      axios.put(`/api/post/edit/${data.postId}`,data,{
+      axios.put(`http://localhost:4040/api/post/edit/${data.postId}`,data,{
         headers: {
           Authorization: `Bearer ${decrypedUserDetails.token}`,
         },
@@ -122,7 +122,7 @@ const Feeds = ({ flex }) => {
 
       
        
-        {posts.length>0&&posts.map((p) => (
+        {posts?.length>0&&posts.map((p) => (
           <Posts postData={p} deletePost={deletePost} editPost={editPost} key={p._id} />
         ))}
       </div>

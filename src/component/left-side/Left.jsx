@@ -16,12 +16,12 @@ const Left = ({flex}) => {
     useEffect(()=>{
       let getConversation = async()=>{
          try{
-          let res = await axios.get("/api/get/conversation",{
+          let res = await axios.get("http://localhost:4040/api/get/conversation",{
               headers:{
                   'Authorization':`Bearer ${decryptedUserDetails.token}`
             }
           }) 
-          console.log(res.data.result)
+      
           setConversation(res.data.result)
 
          }catch(err){

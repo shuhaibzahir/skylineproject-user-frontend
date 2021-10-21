@@ -10,7 +10,7 @@ const RecomendedPoeples = () => {
   const [suggested , setSuggested]= useState([])
 
   useEffect(()=>{
-    axios.get("/api/suggested/user",{
+    axios.get("http://localhost:4040/api/suggested/user",{
         headers:{
             'Authorization':`Bearer ${decryptedUserDetails.token}`
         }
@@ -26,7 +26,7 @@ const RecomendedPoeples = () => {
              <div className="px-6 py-4 space-y-4 mt-3 h-48 overflow-auto">
                
                
-               {suggested.length==0?<p>NO Suggession</p>:suggested.map((i)=><Recomended data={i} changeState={setSuggested} key={i._id}/>)}  
+               {suggested?.length==0?<p>NO Suggession</p>:suggested?.map((i)=><Recomended data={i} changeState={setSuggested} key={i._id}/>)}  
                
                  
              </div>

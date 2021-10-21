@@ -90,7 +90,7 @@ const chatOnSubmit=async(e)=>{
   } 
 
   try{
-    let response = await axios.post("/api/post/meesages",message,{
+    let response = await axios.post("http://localhost:4040/api/post/meesages",message,{
       headers:{
         'Authorization':`Bearer ${currentUser.token}`
       

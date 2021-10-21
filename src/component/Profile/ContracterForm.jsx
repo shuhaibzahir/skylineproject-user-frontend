@@ -64,7 +64,7 @@ const ContracterForm = ({modalClose}) => {
     setFieldErro('')
     // api sending 
     setProgress(true)
-    axios.put("/api/constructor/apply/",constructorDetails,{
+    axios.put("http://localhost:4040/api/constructor/apply/",constructorDetails,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }

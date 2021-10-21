@@ -72,7 +72,7 @@ const Chat = () => {
 
     const getAllMessages =(converId,user)=>{
        
-        axios.get(`/api/get/meesages/${converId}`,{
+        axios.get(`http://localhost:4040/api/get/meesages/${converId}`,{
             headers:{
                 'Authorization':`Bearer ${currentUser.token}`
               
