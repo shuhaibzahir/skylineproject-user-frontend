@@ -175,8 +175,8 @@ const Register = () => {
         .catch((err) => {
           setProgress(false);
           console.log("error found");
-          let errors = err.response.data.error;
-          let apierror = err.response.data.apiError;
+          let errors = err?.response?.data.error;
+          let apierror = err?.response?.data?.apiError;
           if (errors) {
             errors.error.forEach((i) => {
               if (i.phone) {
@@ -250,7 +250,8 @@ const Register = () => {
         })
         .catch((err) => {
           setProgress(false);
-          let apierror = err.response.data.apiError;
+          console.log(err)
+          let apierror = err?.response?.data?.apiError;
           if (apierror) {
             setSigninError(apierror);
           }
