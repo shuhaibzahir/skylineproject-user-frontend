@@ -241,7 +241,7 @@ const Register = () => {
           },
         })
         .then((response) => {
-          console.log(response)
+          
            const encrypted = encryptData(response.data);
           localStorage.setItem("userChecking", encrypted);
           setUserDataFromServer(response.data);
