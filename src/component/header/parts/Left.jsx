@@ -57,7 +57,7 @@ const Left = ({flex}) => {
             </div>
           <div className={`bg-pink   absolute  rounded-2xl p-4    w-1/4 ${resultBox?'':'hidden'}`}>
 
-              {searchResult.map((i)=>{
+              {searchResult?.map((i)=>{
                  return <Link to={`/user/profile/${i._id}`}  >
                   <div className="flex items-center cursor-pointer rounded-full bg-white-100 p-2 m-2 space-x-3">
                        <img src={i.photo} className="w-8 h-8 rounded-full" alt="" />
