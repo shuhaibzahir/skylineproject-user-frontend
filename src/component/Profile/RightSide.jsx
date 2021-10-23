@@ -11,7 +11,7 @@ const Right = ({ flex }) => {
   const { chatDetails, setChatting } = useContext(ChatDetails);
   let checkUserData = localStorage.getItem("userChecking");
   let decryptedUser = decryptData(checkUserData);
- console.log(decryptedUser,"+++++++")
+ 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

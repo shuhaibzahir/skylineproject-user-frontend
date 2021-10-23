@@ -49,7 +49,7 @@ const Chat = ({ closeChatBox, chattingData }) => {
  
 const socket = useRef()
 useEffect(() => {
- socket.current=io("wss://4r1di7dg3k.execute-api.us-east-1.amazonaws.com/production",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
+ socket.current=io("wss://skyline.shuhaib.host/websocket",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
  socket.current.on("getMessage",data=>{
  
   setArrivedMessage({

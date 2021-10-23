@@ -27,7 +27,7 @@ const Chat = () => {
     if(checkUserData) currentUser = decryptData(checkUserData)
  
     useEffect(() => {
-        socket.current=io("ws://skyline.shuhaib.host/websocket",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
+        socket.current=io("wss://skyline.shuhaib.host/websocket",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
          socket.current.on("getMessage",data=>{
 
             setArrivalMessage({
