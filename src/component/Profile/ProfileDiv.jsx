@@ -33,7 +33,7 @@ const ProfileDiv = ({userPost}) => {
  const [ following, setFollowing] = useState([])
   const [progress,setProgress] =useState(false)
   useEffect(()=>{
-    axios.get("http://localhost:4040/api/user/info",{
+    axios.get("https://skyline.shuhaib.host/server/api/user/info",{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }
@@ -83,7 +83,7 @@ const ProfileDiv = ({userPost}) => {
  
     newform.append("file",keepUpdateImage)
     console.log(newform)
-     axios.put("http://localhost:4040/api/profile-pic/upload",newform,{
+     axios.put("https://skyline.shuhaib.host/server/api/profile-pic/upload",newform,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       
@@ -111,7 +111,7 @@ const ProfileDiv = ({userPost}) => {
   }
 
   useEffect(()=>{
-    axios.get("http://localhost:4040/api/user/network/data",{
+    axios.get("https://skyline.shuhaib.host/server/api/user/network/data",{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
        }

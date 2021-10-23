@@ -64,7 +64,7 @@ const ContracterForm = ({modalClose}) => {
     setFieldErro('')
     // api sending 
     setProgress(true)
-    axios.put("http://localhost:4040/api/constructor/apply/",constructorDetails,{
+    axios.put("https://skyline.shuhaib.host/server/api/constructor/apply/",constructorDetails,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       }

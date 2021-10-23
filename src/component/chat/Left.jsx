@@ -14,7 +14,7 @@ const RightSide = ({flex,getMessage,conversation,setConversations}) => {
       useEffect(()=>{
         let getConversation = async()=>{
            try{
-            let res = await axios.get("http://localhost:4040/api/get/conversation",{
+            let res = await axios.get("https://skyline.shuhaib.host/server/api/get/conversation",{
                 headers:{
                     'Authorization':`Bearer ${decryptedUserDetails.token}`
                   

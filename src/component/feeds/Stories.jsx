@@ -12,7 +12,7 @@ const Stories = () => {
     const [ loading,setLoading] = useState(true)
     
     useEffect(()=>{
-        axios.get("http://localhost:4040/api/user/get/all/stories",{
+        axios.get("https://skyline.shuhaib.host/server/api/user/get/all/stories",{
             headers:{
                 Authorization: `Bearer ${decryptedUserDetails.token}`,
             }

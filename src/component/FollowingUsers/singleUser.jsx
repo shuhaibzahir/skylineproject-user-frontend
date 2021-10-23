@@ -17,7 +17,7 @@ let decryptedUserDetails = decryptData(checkUserData);
 
 const unFollow =(userId)=>{
   setLoading(true)
-  axios.put(`http://localhost:4040/api/unfollow/user/${i._id}`,{},{
+  axios.put(`https://skyline.shuhaib.host/server/api/unfollow/user/${i._id}`,{},{
     headers:{
       'Authorization':`Bearer ${decryptedUserDetails.token}`
     

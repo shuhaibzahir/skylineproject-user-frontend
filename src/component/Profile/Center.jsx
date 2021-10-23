@@ -27,7 +27,7 @@ const Feeds = ({ flex }) => {
   // delete post
   const deletePost = (postId) => {
     axios
-      .delete(`http://localhost:4040/api/post/delete/${postId}`, {
+      .delete(`https://skyline.shuhaib.host/server/api/post/delete/${postId}`, {
         headers: {
           Authorization: `Bearer ${decryptedUserDetails.token}`,
         },
@@ -56,7 +56,7 @@ const Feeds = ({ flex }) => {
   // get own posts
   useEffect(() => {
     axios
-      .get("http://localhost:4040/api//user/own/post", {
+      .get("https://skyline.shuhaib.host/server/api//user/own/post", {
         headers: {
           Authorization: `Bearer ${decryptedUserDetails.token}`,
         },
@@ -82,7 +82,7 @@ const Feeds = ({ flex }) => {
   // updatePost 
   
   const updatePost =(data)=>{
-      axios.put(`http://localhost:4040/api/post/edit/${data.postId}`,data,{
+      axios.put(`https://skyline.shuhaib.host/server/api/post/edit/${data.postId}`,data,{
         headers: {
           Authorization: `Bearer ${decryptedUserDetails.token}`,
         },

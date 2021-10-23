@@ -27,7 +27,7 @@ const Chat = () => {
     if(checkUserData) currentUser = decryptData(checkUserData)
  
     useEffect(() => {
-        socket.current=io("ws://localhost:8900")
+        socket.current=io("ws://skyline.shuhaib.host/websocket",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
          socket.current.on("getMessage",data=>{
 
             setArrivalMessage({
@@ -72,7 +72,7 @@ const Chat = () => {
 
     const getAllMessages =(converId,user)=>{
        
-        axios.get(`http://localhost:4040/api/get/meesages/${converId}`,{
+        axios.get(`https://skyline.shuhaib.host/server/api/get/meesages/${converId}`,{
             headers:{
                 'Authorization':`Bearer ${currentUser.token}`
               

@@ -159,7 +159,7 @@ const Register = () => {
       // ....................................................
       setProgress(true);
       axios
-        .post("http://localhost:4040/api/userSignup", signUpData, {
+        .post("https://skyline.shuhaib.host/server/api/userSignup", signUpData, {
           headers: {
             "content-type": "application/json",
           },
@@ -235,9 +235,10 @@ const Register = () => {
     if (signinEmail === false) {
       setProgress(true);
       axios
-        .post("http://localhost:4040/api/userSignin", signinData, {
+        .post("https://skyline.shuhaib.host/server/api/userSignin", signinData, {
           headers: {
             "content-type": "application/json",
+           
           },
         })
         .then((response) => {
@@ -264,7 +265,7 @@ const Register = () => {
   // google authentication
   const onSuccessWithGoogle = (response) => {
       
-        axios.post("http://localhost:4040/api/signin/with/google",response.profileObj).then((result)=>{
+        axios.post("https://skyline.shuhaib.host/server/api/signin/with/google",response.profileObj).then((result)=>{
              
             const encrypted = encryptData(result.data);
             localStorage.setItem("userChecking", encrypted);

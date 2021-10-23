@@ -19,7 +19,7 @@ const ProfileDiv =  ({data,postData,usersId}) => {
  
  
     useEffect( ()=>{
-     axios.get(`http://localhost:4040/api/user/network/data/${usersId}`,{
+     axios.get(`https://skyline.shuhaib.host/server/api/user/network/data/${usersId}`,{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
        }
@@ -36,7 +36,7 @@ const ProfileDiv =  ({data,postData,usersId}) => {
       
   const followAuser = (userId)=>{
     setLoading(true)
-    axios.put(`http://localhost:4040/api/follow/user/${userId}`,{},{
+    axios.put(`https://skyline.shuhaib.host/server/api/follow/user/${userId}`,{},{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       
@@ -56,7 +56,7 @@ const ProfileDiv =  ({data,postData,usersId}) => {
  
   const unFollow =(userId)=>{
     setLoading(true)
-    axios.put(`http://localhost:4040/api/unfollow/user/${userId}`,{},{
+    axios.put(`https://skyline.shuhaib.host/server/api/unfollow/user/${userId}`,{},{
       headers:{
         'Authorization':`Bearer ${decryptedUserDetails.token}`
       

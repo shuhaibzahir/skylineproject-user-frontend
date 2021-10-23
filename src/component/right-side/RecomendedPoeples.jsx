@@ -10,7 +10,7 @@ const RecomendedPoeples = () => {
   const [suggested , setSuggested]= useState([])
 
   useEffect(()=>{
-    axios.get("http://localhost:4040/api/suggested/user",{
+    axios.get("https://skyline.shuhaib.host/server/api/suggested/user",{
         headers:{
             'Authorization':`Bearer ${decryptedUserDetails.token}`
         }

@@ -108,7 +108,7 @@ const sendingTheData = ()=>{
   body.append("privacy",privacy)
   body.append("media",postMedia)
    
-  axios.post("http://localhost:4040http://localhost:4040/api/post/uploading", body,{
+  axios.post(" https://skyline.shuhaib.host/server/api/post/uploading", body,{
     headers:{
       'Authorization':`Bearer ${decryptedUserDetails.token}`
      }

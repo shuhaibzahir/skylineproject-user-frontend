@@ -43,7 +43,7 @@ const UserStory = ({existStory,setUserStory}) => {
     let formData = new FormData();
     formData.append("file", storyFile);
 
-    axios.post("http://localhost:4040/api/user/story/update",formData, {
+    axios.post("https://skyline.shuhaib.host/server/api/user/story/update",formData, {
       headers: {
         Authorization: `Bearer ${decryptedUserDetails.token}`,
       },
@@ -59,7 +59,7 @@ const UserStory = ({existStory,setUserStory}) => {
 
 const deleteUserStory =()=>{
   console.log("this is deleter funtion")
-  axios.delete("http://localhost:4040/api/user/delete/story",{
+  axios.delete("https://skyline.shuhaib.host/server/api/user/delete/story",{
     headers: {
       Authorization: `Bearer ${decryptedUserDetails.token}`,
     },

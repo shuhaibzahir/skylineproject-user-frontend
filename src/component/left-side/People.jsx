@@ -24,7 +24,7 @@ const People = ({currentUser,conv,getMessage}) => {
         const friendId = conv.members.find(m=>m!==decryptedUserDetails.user._id)
      
         const getUser = async ()=>{
-            const res = await axios.get(`http://localhost:4040/api/get/user/details/${friendId}`,{
+            const res = await axios.get(`https://skyline.shuhaib.host/server/api/get/user/details/${friendId}`,{
                 headers:{
                     'Authorization':`Bearer ${decryptedUserDetails.token}`
                }
@@ -40,7 +40,7 @@ const People = ({currentUser,conv,getMessage}) => {
     // take the message from database
     const getAllMessages =async(conv)=>{
     
-       await axios.get(`http://localhost:4040/api/get/meesages/${conv._id}`,{
+       await axios.get(`https://skyline.shuhaib.host/server/api/get/meesages/${conv._id}`,{
             headers:{
                 'Authorization':`Bearer ${decryptedUserDetails.token}`
               

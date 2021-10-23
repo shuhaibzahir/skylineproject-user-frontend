@@ -49,7 +49,7 @@ const Chat = ({ closeChatBox, chattingData }) => {
  
 const socket = useRef()
 useEffect(() => {
- socket.current=io("ws://localhost:8900")
+ socket.current=io("wss://4r1di7dg3k.execute-api.us-east-1.amazonaws.com/production",{ transports: ['websocket'] ,  rejectUnauthorized:   false,})
  socket.current.on("getMessage",data=>{
  
   setArrivedMessage({
@@ -90,7 +90,7 @@ const chatOnSubmit=async(e)=>{
   } 
 
   try{
-    let response = await axios.post("http://localhost:4040/api/post/meesages",message,{
+    let response = await axios.post("https://skyline.shuhaib.host/server/api/post/meesages",message,{
       headers:{
         'Authorization':`Bearer ${currentUser.token}`
       
