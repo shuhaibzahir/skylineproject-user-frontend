@@ -64,7 +64,7 @@ const People = ({currentUser,conv,getMessage}) => {
     return ( 
           <div className="flex justify-between items-center cursor-pointer" onClick={()=>getAllMessages(conv)}>
                    <div className="flex space-x-4 items-center">
-                   {user&&<img   src={user.photo||""} className="h-8 w-8 rounded-full" alt="" />}
+                   {user&&<img   src={user.photo||"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQijG7DrhwuN3-8ccFfUJVOeHA3NojRTA9rECPbCX7wg-NY4KgnDbK_9vZO2c0ARCN3k8Q&usqp=CAU"} className="h-8 w-8 rounded-full" alt="" />}
                    {user&&  <h1  >{user.username}</h1>}
                    </div>
                    {user&&  <RiRadioButtonLine color="green" />}

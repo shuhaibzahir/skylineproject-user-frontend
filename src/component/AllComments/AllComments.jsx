@@ -28,11 +28,11 @@ export default function AllComments({commentMOdalOpen,commentMOdalClose,comments
       >
         <Box sx={style}>
         
-       {comments.map((i)=> <div className=" p-2 ">
+       {comments.map((i,index)=> <div key={index} className=" p-2 ">
         <div className="flex  bg-white-100 items-center p-5 rounded-2xl rounded-bl-none justify-between">
         <div className="flex space-x-2">
           <img
-            src="https://pbs.twimg.com/profile_images/1390886031851855880/wktTnTP3_400x400.jpg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQijG7DrhwuN3-8ccFfUJVOeHA3NojRTA9rECPbCX7wg-NY4KgnDbK_9vZO2c0ARCN3k8Q&usqp=CAU"
             className="w-8 h-8 rounded-full"
             alt=""
           />

@@ -13,7 +13,7 @@ const OnlinePoeple = ({conversation}) => {
         <div className="p-6 mt-3 overscroll-auto ">
             <div className="flex space-y-4 pb-4 flex-col">
             
-            {conversation?.map((c)=> <People conv={c}/>)}
+            {conversation?.map((c,index)=> <People key={index} conv={c}/>)}
              
                
             </div>

@@ -22,7 +22,7 @@ const Left = ({flex}) => {
             setSearchResult(()=>[])
             return
          }else{
-            axios.get(`/api/search/result?key=${value}`,{
+            axios.get(`https://skyline.shuhaib.host/server/api/search/result?key=${value}`,{
                 headers:{
                     'Authorization':`Bearer ${decryptedUserDetails.token}`
                   
@@ -49,16 +49,16 @@ const Left = ({flex}) => {
             <div className="flex   h-16  rounded-2xl px-3  w-full justify-around items-center">
             <h1 className="mr-2 font-main text-pink text-4xl font-bold cursor-pointer">skyline</h1>
            
-           <div className=" flex items-center rounded-full bg-white-100 px-4" >
+           <div className=" flex items-center rounded-full bg-white-100 px-4 " >
                <BiSearchAlt size="1.5rem" className="text-dark-gray"/>
                <input onChange={(e)=>searchingInput(e)} className=" px-4 py-2 text-pink bg-transparent focus:outline-none" placeholder="search post, company.." type="text" />
              
             </div>
             </div>
           <div className={`bg-pink   absolute  rounded-2xl p-4    w-1/4 ${resultBox?'':'hidden'}`}>
-
-              {searchResult?.map((i)=>{
-                 return <Link to={`/user/profile/${i._id}`}  >
+          
+              {searchResult?.map((i ,index)=>{
+                 return <Link key={index} to={`/user/profile/${i._id}`}  >
                   <div className="flex items-center cursor-pointer rounded-full bg-white-100 p-2 m-2 space-x-3">
                        <img src={i.photo} className="w-8 h-8 rounded-full" alt="" />
                         <h1>{i.username}</h1>

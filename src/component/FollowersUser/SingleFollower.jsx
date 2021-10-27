@@ -72,12 +72,7 @@ const unFollow =(userId)=>{
       <Link to={`/user/profile/${userData._id}`}> 
         <div className="flex items-center justify-center">
           <img
-           onError={(e) => {
-            e.target.onerror = null;
-            e.target.src =
-              "https://media.istockphoto.com/photos/colorful-gradient-pink-magenta-abstract-background-picture-id1059836414?k=20&m=1059836414&s=170667a&w=0&h=5WVpLbctBNZo406v7r8UmuuPbkyE-lwhDcJTfqgP_hE=";
-          }}
-            src={userData.photo}
+             src={userData.photo || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQijG7DrhwuN3-8ccFfUJVOeHA3NojRTA9rECPbCX7wg-NY4KgnDbK_9vZO2c0ARCN3k8Q&usqp=CAU"}
             alt=""
             className="h-24 w-24 rounded-full"
           />
