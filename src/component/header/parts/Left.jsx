@@ -45,13 +45,13 @@ const Left = ({flex}) => {
 
 
     return (
-        <div className={`${flex}  `}>
-            <div className="flex   h-16  rounded-2xl px-3  w-full justify-around items-center">
+        <div className={`${flex}  hidden md:block   `}>
+            <div className="flex h-16  rounded-2xl px-3  w-full justify-around items-center">
             <h1 className="mr-2 font-main text-pink text-4xl font-bold cursor-pointer">skyline</h1>
            
            <div className=" flex items-center rounded-full bg-white-100 px-4 " >
                <BiSearchAlt size="1.5rem" className="text-dark-gray"/>
-               <input onChange={(e)=>searchingInput(e)} className=" px-4 py-2 text-pink bg-transparent focus:outline-none" placeholder="search post, company.." type="text" />
+               <input onChange={(e)=>searchingInput(e)} className="  md:px-4 py-2 text-pink bg-transparent focus:outline-none" placeholder="search post, company.." type="text" />
              
             </div>
             </div>
