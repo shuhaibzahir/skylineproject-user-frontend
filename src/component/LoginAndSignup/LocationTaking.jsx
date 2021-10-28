@@ -31,7 +31,7 @@ import {
     return (
     
         <Autocomplete
-       
+        
         onChange={(e,value)=>{
           locationDetails((prev)=>{
             return{
@@ -57,7 +57,7 @@ import {
             {option.long_name}
           </li>
         )}
-        style={{ width: 500 }}
+        fullWidth
         renderInput={(params) => (
           
           <TextField   error={prefferdlocationDataCheck} {...params} label="Select Prefered Locations" placeholder="Locations"  onChange={(e)=>{getAllLocation(e.target.value)}} />

@@ -18,16 +18,12 @@ import { encryptData, decryptData } from "../../Middleware/crypto";
 // makestyle........................................
 const useStyles = makeStyles((theme) => ({
   inputfull: {
-    width: "90%",
+    
     "& label.Mui-focused": {
       color: "#152D35",
     },
   },
-  textColor: {
-    "& label.Mui-focused": {
-      color: "#152D35",
-    },
-  },
+ 
 }));
 
 // create theme
@@ -293,14 +289,14 @@ const Register = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className="flex">
-        <div className="flex-1 h-screen bg-signin relative bg-cover bg-no-repeat">
+        <div className="hidden md:flex md:flex-1  h-screen bg-signin relative bg-cover bg-no-repeat">
           <div
             className={` ${
               signin ? "bg-pink bg-opacity-60" : "bg-black bg-opacity-60"
             } text-center flex items-center  flex-col  justify-center space-y-5 h-screen w-full absolute top-0 left-0 p-6`}
           >
             <h1 className="text-white font-main text-5xl">Skyline</h1>
-            <h1 className="text-white text-3xl ">
+            <h1 className="text-white text-xl md:text-3xl ">
               {" "}
               {signin ? "Open" : "Hurry up !"} <br /> Door to Your Greate Dream
             </h1>
@@ -311,7 +307,7 @@ const Register = () => {
           {/* form div */}
           {signin ? (
             <div className="relative flex justify-center">
-              <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
+              <div className=" flex items-center  relative flex-col justify-center  space-y-5 h-screen p-6">
                 <h1 className="text-2xl">
                   {" "}
                   Sign In to{" "}
@@ -326,6 +322,7 @@ const Register = () => {
                 </div>
 
                 <TextField
+                fullWidth
                   id="outlined-email"
                   error={signinEmail}
                   value={signinData.email || ""}
@@ -337,6 +334,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
+                fullWidth
                   id="outlined-pass"
                   className={classes.inputfull}
                   onChange={(e) => {
@@ -346,19 +344,19 @@ const Register = () => {
                   variant="outlined"
                 />
                 <p>{signInError}</p>
-                <div className="w-full px-7  flex items-center justify-between">
+                <div className="w-full px-2 lg:px-7  space-y-3 lg:flex items-center justify-between">
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#FF005C", color: "#ffff" }}
                     onClick={() => {
                       signIn();
                     }}
-                    endIcon={<SendIcon />}
+                    endIcon={<SendIcon  />}
                   >
                     {" "}
                     Sign In
                   </Button>
-                  <p className="  ml-4">
+                  <p className="text-sm md:text-md md:ml-2 lg:ml-4">
                     Doesn't have an account?{" "}
                     <AiOutlineLogin
                       onClick={() => {
@@ -379,13 +377,13 @@ const Register = () => {
                      
                     cookiePolicy={"single_host_origin"}
                   />
-                  ,
+                 
                 </div>
               </div>
             </div>
           ) : (
             <div className="relative flex justify-center">
-              <div className=" flex items-center w-1/2   relative flex-col justify-center  space-y-5 h-screen p-6">
+              <div className="flex items-center  relative flex-col justify-center  space-y-5 h-screen p-6">
                 <h1 className="text-2xl">
                   {" "}
                   Sign up to{" "}
@@ -398,12 +396,12 @@ const Register = () => {
                 >
                   <LinearProgress />
                 </div>
-                <div className="space-x-4  ">
+            
                   <TextField
                     id="outlined-username"
                     name="username"
                     value={signUpData.username}
-                    className={classes.textColor}
+                    className={classes.inputfull}
                     error={usernameValidate}
                     onChange={(e) => {
                       checkUserName(e);
@@ -411,6 +409,7 @@ const Register = () => {
                     label={`${
                       usernameValidate ? "Invalid UserName" : "Username"
                     }`}
+                    fullWidth
                     variant="outlined"
                   />
 
@@ -418,20 +417,22 @@ const Register = () => {
                     id="outlined-email"
                     name="email"
                     value={signUpData.email}
-                    className={classes.textColor}
+                    className={classes.inputfull}
                     error={emailValidation}
                     onChange={(e) => {
                       checkEmail(e);
                     }}
+                    fullWidth
                     label={`${emailValidation ? "Invalid Email" : "Email"}`}
                     variant="outlined"
                   />
-                </div>
+                
                 <TextField
                   id="outlined-phone"
                   name="phone"
                   value={signUpData.phone}
                   className={classes.inputfull}
+                  fullWidth
                   error={phoneNumberValidate}
                   onChange={(e) => {
                     phoeNumber(e);
@@ -444,6 +445,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
+                fullWidth
                   id="outlined-password"
                   name="password"
                   value={signUpData.password}
@@ -460,6 +462,7 @@ const Register = () => {
                   variant="outlined"
                 />
                 <TextField
+                fullWidth
                   id="outlined-cpass"
                   name="confirmPassword"
                   value={signUpData.confirmPassword}
@@ -475,11 +478,11 @@ const Register = () => {
                   }`}
                   variant="outlined"
                 />
-                <div style={{ width: "90%" }}>
+               
                   <Locations locationDetails={setSingupData} />
-                </div>
+               
                 <p className="text-red-400">{apierror || ""}</p>
-                <div className="w-full px-7  flex items-center justify-between">
+                <div className="w-full lg:px-7 space-y-3  lg:flex items-center justify-between">
                   <Button
                     variant="contained"
                     style={{ color: "#ffff" }}
@@ -491,7 +494,7 @@ const Register = () => {
                     {" "}
                     Sign Up
                   </Button>
-                  <p className="  ml-4">
+                  <p className=" md:ml-4">
                     Do you have already account?{" "}
                     <AiOutlineLogin
                       onClick={() => {
