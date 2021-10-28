@@ -52,7 +52,7 @@ const SingleUserChat = ({messages,currentUser,setMessage,conversationId ,current
                         <h1>{currentFriend.username}</h1>
                     </div>
                     <hr className="mt-3"/>
-                    <div className="overflow-auto p-6   rounded" ref={messageRef} style={{maxHeight:"600px", minHeight:"600px"}}>
+                    <div className="  p-6 overflow-auto  rounded" ref={messageRef} style={{maxHeight:"600px",    minHeight:"600px"}}>
                      
                     {messages.map((m,index)=>   <SingleChat key={index} m={m}    own={m.sender===currentUser.user._id}/>)}
                     

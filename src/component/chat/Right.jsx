@@ -3,7 +3,7 @@ import React from 'react'
 const RightSide = ({flex,onlineUsers,conversation,getAllMessages,currentUser}) => {
    
     return (
-        <div className={`${flex} `}>
+        <div className={`${flex} hidden md:block `}>
             <div className={`min-h-withoutHeader bg-white-100  p-6 max-h-48 w-1/4 fixed overflow-auto `}>
              <div className=" h-96 p-4">
             

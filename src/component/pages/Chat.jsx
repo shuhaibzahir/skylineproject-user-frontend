@@ -91,7 +91,7 @@ const Chat = () => {
 // home page ........
 
         return (
-            <div  className="space-x-6 flex min-w-full   min-h-withoutHeader  mt-24   justify-between ">
+            <div  className="md:space-x-6  flex min-w-full   min-h-withoutHeader  mt-24   justify-between ">
    
             <LeftOfChat getMessage={getAllMessages} conversation={conversation} setConversations={setConversations} flex="flex-1" />
             <ChatBox messages={messages} socket={socket} openChat={openChat} currentFriend={currentFriend} currentUser={currentUser} conversationId={conversationId} setMessage={setMessage} flex="flex-3" />
