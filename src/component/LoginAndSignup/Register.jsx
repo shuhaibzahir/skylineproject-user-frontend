@@ -330,6 +330,7 @@ const Register = () => {
                   onChange={(e) => {
                     signInEmailValidation(e);
                   }}
+
                   label={`${signinEmail ? "Invalid Email" : "Email"}`}
                   variant="outlined"
                 />
@@ -337,6 +338,7 @@ const Register = () => {
                 fullWidth
                   id="outlined-pass"
                   className={classes.inputfull}
+                  type="password"
                   onChange={(e) => {
                     signinPasswordValidation(e);
                   }}
@@ -448,6 +450,7 @@ const Register = () => {
                 fullWidth
                   id="outlined-password"
                   name="password"
+                  type="password"
                   value={signUpData.password}
                   className={classes.inputfull}
                   error={passwordValidate}
@@ -465,6 +468,7 @@ const Register = () => {
                 fullWidth
                   id="outlined-cpass"
                   name="confirmPassword"
+                  type="password"
                   value={signUpData.confirmPassword}
                   className={classes.inputfull}
                   error={confirmPassValidate}
